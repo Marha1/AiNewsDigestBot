@@ -1,0 +1,28 @@
+# Build output
+bin/
+obj/
+out/
+
+# Database
+*.db
+
+
+# User secrets (важно! токены не должны в репозитории)
+appsettings.Development.json
+appsettings.json
+
+# IDE
+.vs/
+.idea/
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Docker
+*.dcignore
+
+# OS
+.DS_Store
+Thumbs.db

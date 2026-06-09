@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiNewsDigestBot.Host", "AiNewsDigestBot.Host\AiNewsDigestBot.Host.csproj", "{89878063-52F4-47EC-BC6C-63EBDCBCA18A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89878063-52F4-47EC-BC6C-63EBDCBCA18A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89878063-52F4-47EC-BC6C-63EBDCBCA18A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89878063-52F4-47EC-BC6C-63EBDCBCA18A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89878063-52F4-47EC-BC6C-63EBDCBCA18A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

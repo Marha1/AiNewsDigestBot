@@ -1,0 +1,6 @@
+@AiNewsDigestBot.Host_HostAddress = http://localhost:5217
+
+GET {{AiNewsDigestBot.Host_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
