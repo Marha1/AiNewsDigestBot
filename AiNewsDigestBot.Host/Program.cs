@@ -37,7 +37,8 @@ builder.Services.AddScoped<TopicDetector>();
 builder.Services.AddScoped<MainNewsParser>();
 builder.Services.AddScoped<DigestHandler>();
 builder.Services.AddScoped<IChatService, ChatService>();
-
+builder.Services.AddScoped<ArticleService>();
+builder.Services.AddScoped<SourceService>();
 
 builder.Services.AddHttpClient();
 var app = builder.Build();

@@ -74,6 +74,9 @@ namespace AiNewsDigestBot.Host.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("text");

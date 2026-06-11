@@ -1,4 +1,5 @@
 using AiNewsDigestBot.Host.Shared.Data;
+using AiNewsDigestBot.Host.Shared.Services;
 using AiNewsDigestBot.Host.Shared.Services.ChatService.Implementations;
 using AiNewsDigestBot.Host.Shared.Services.Parser;
 using AiNewsDigestBot.Host.Shared.Services.Parser.TopicDetected;
@@ -21,6 +22,8 @@ public class MainParserTest : IDisposable
     private readonly ILogger<MainNewsParser> _logger;
     private readonly string _testDbPath;
     private readonly TopicDetector _topicDetector;
+    private readonly ArticleService _articleService;
+    private readonly SourceService _sourceService;
 
     public MainParserTest()
     {
@@ -48,6 +51,8 @@ public class MainParserTest : IDisposable
         _logger = NullLogger<MainNewsParser>.Instance;
         _httpClient = new HttpClient();
         _chatService = new ChatService(_httpClient, _config);
+        _articleService = new ArticleService(_dbContext, NullLogger<ArticleService>.Instance);
+        _sourceService = new SourceService(_dbContext, NullLogger<SourceService>.Instance);
     }
 
     public void Dispose()
@@ -61,8 +66,14 @@ public class MainParserTest : IDisposable
     public async Task ParseAndSaveAsync_WithRssSources_SavesArticlesToDatabase()
     {
         // Arrange
-        var parser = new MainNewsParser(_httpFactory, _config, _dbContext, _logger, _topicDetector, _chatService);
-
+  var parser = new MainNewsParser(
+            _httpFactory,
+            _config,
+            _logger,
+            _topicDetector,
+            _chatService,
+            _articleService,
+            _sourceService);
         // Act
         await parser.ParseAndSaveAsync();
 
@@ -93,8 +104,14 @@ public class MainParserTest : IDisposable
     public async Task ParseAndSaveAsync_HandlesDuplicateUrls_DoesNotDuplicate()
     {
         // Arrange
-        var parser = new MainNewsParser(_httpFactory, _config, _dbContext, _logger, _topicDetector, _chatService);
-
+        var parser = new MainNewsParser(
+            _httpFactory,
+            _config,
+            _logger,
+            _topicDetector,
+            _chatService,
+            _articleService,
+            _sourceService);
         // Act - первый запуск
         await parser.ParseAndSaveAsync();
         var firstCount = await _dbContext.Articles.CountAsync();
