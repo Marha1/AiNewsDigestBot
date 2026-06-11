@@ -9,22 +9,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="100e8a75-8953-4d1d-85b0-7528859c4489" name="Changes" comment="feat: initial &#10;&#10;- Add ASP.NET Core Web API project&#10;- Configure PostgreSQL with EF Core&#10;- Add entities: User, Subscription, UserSettings, Article&#10;- Add entity configurations and AppDbContext&#10;- Add HealthController for /api/health&#10;- Add Swagger for API testing&#10;- Add initial migration&quot;">
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Controllers/HealthController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/MySubs/MySubsHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Start/StartHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/SubscribeHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/Unsubscribe/UnsubscribeHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Topics/TopicsHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Enums/SourceType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/NewsParser.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/TelegramBotService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/RssParserTests.cs" afterDir="false" />
+    <list default="true" id="100e8a75-8953-4d1d-85b0-7528859c4489" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Digest/DigestHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Help/HelpHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Configurations/SourceConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/NewsApiResponse.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/NewsSources.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/Source.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ChatService/Implementations/ChatService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ChatService/Interfaces/IChatService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/MainParser.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/TopicDetected/TopicDetected.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/NewsAPITests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AiNewsDigestBot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AiNewsDigestBot/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/AiNewsDigestBot.Host.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/AiNewsDigestBot.Host.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/20260609125117_Initial.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Migrations/20260609125117_Initial.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/20260609125117_Initial.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Migrations/20260609125117_Initial.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Start/StartHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Start/StartHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/AppDbContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Configurations/ArticleConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Configurations/ArticleConfiguration.cs" afterDir="false" />
@@ -32,10 +32,14 @@
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Configurations/UserConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Configurations/UserConfiguration.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Configurations/UserSettingsConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Configurations/UserSettingsConfiguration.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/DesignTimeDbContextFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/DesignTimeDbContextFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/Article.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/Article.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/Subscription.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/Subscription.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/UserSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/UserSettings.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Enums/Topic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Enums/Topic.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/NewsParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/NewsParser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/TelegramBotService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/TelegramBotService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.sln" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,17 +48,34 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Net.Http/src/System/Net/Http/HttpRequestException.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/String.Manipulation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Threading/ExecutionContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b13cb16f7e5749269b6922dc6752bd1c291448/86/a298519a/ModelCustomizer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b13cb16f7e5749269b6922dc6752bd1c291448/a5/b7a85e42/ModelBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b13cb16f7e5749269b6922dc6752bd1c291448/ae/ff830ac4/ModelSource.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5e14a4e27990972fa4ae94975603bd298aaf328ee083c03b10569ee4724d57/TestInvoker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Hi-Tech/RiderProjects/AiNewsDigestBot/AiNewsDigestBot.Host/Shared/Data/AppDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Hi-Tech/RiderProjects/AiNewsDigestBot/AiNewsDigestBot.Host/Shared/Data/Entity/UserSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Hi-Tech/RiderProjects/AiNewsDigestBot/AiNewsDigestBot.Host/Shared/Data/Enums/Topic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="SWEA" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="3EtjzXWXDeho2De3rap8cWjdTYx" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -63,30 +84,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.AiNewsDigestBot.Host: http.executor": "Debug",
-    "3937f3d8-85f0-43a5-8423-8c4036be8372.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "XThreadsFramesViewSplitterKey": "0.50109893",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.AiNewsDigestBot.Host: http.executor&quot;: &quot;Run&quot;,
+    &quot;3937f3d8-85f0-43a5-8423-8c4036be8372.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\Hi-Tech\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\Hi-Tech\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\Hi-Tech\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\Hi-Tech\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\Hi-Tech\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\Hi-Tech\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.AiNewsDigestBot.Host: http">
     <configuration name="AiNewsDigestBot.Host: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/AiNewsDigestBot.Host/AiNewsDigestBot.Host.csproj" />
@@ -155,7 +175,10 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
   </component>
@@ -167,7 +190,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1781005025936</updated>
-      <workItem from="1781005027578" duration="16227000" />
+      <workItem from="1781005027578" duration="36661000" />
+      <workItem from="1781184877011" duration="8916000" />
     </task>
     <task id="LOCAL-00001" summary="feat: initial &#10;&#10;- Add ASP.NET Core Web API project&#10;- Configure PostgreSQL with EF Core&#10;- Add entities: User, Subscription, UserSettings, Article&#10;- Add entity configurations and AppDbContext&#10;- Add HealthController for /api/health&#10;- Add Swagger for API testing&#10;- Add initial migration&quot;">
       <option name="closed" value="true" />
@@ -177,7 +201,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781009873681</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: add RSS parser with unit tests + inline keyboard&#10;&#10;- Add NewsParser with RSS parsing support&#10;- Add SourceType detection (RSS/NewsAPI/HTML)&#10;- Add unit tests for RSS parser:&#10;  - Valid RSS feed parsing&#10;  - Network error handling&#10;  - Missing fields handling&#10;- Add Moq for HttpClient mocking in tests">
+      <option name="closed" value="true" />
+      <created>1781102366420</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1781102366420</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,36 +230,76 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="feat: initial &#10;&#10;- Add ASP.NET Core Web API project&#10;- Configure PostgreSQL with EF Core&#10;- Add entities: User, Subscription, UserSettings, Article&#10;- Add entity configurations and AppDbContext&#10;- Add HealthController for /api/health&#10;- Add Swagger for API testing&#10;- Add initial migration&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: initial &#10;&#10;- Add ASP.NET Core Web API project&#10;- Configure PostgreSQL with EF Core&#10;- Add entities: User, Subscription, UserSettings, Article&#10;- Add entity configurations and AppDbContext&#10;- Add HealthController for /api/health&#10;- Add Swagger for API testing&#10;- Add initial migration&quot;" />
+    <MESSAGE value="feat: add RSS parser with unit tests + inline keyboard&#10;&#10;- Add NewsParser with RSS parsing support&#10;- Add SourceType detection (RSS/NewsAPI/HTML)&#10;- Add unit tests for RSS parser:&#10;  - Valid RSS feed parsing&#10;  - Network error handling&#10;  - Missing fields handling&#10;- Add Moq for HttpClient mocking in tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add RSS parser with unit tests + inline keyboard&#10;&#10;- Add NewsParser with RSS parsing support&#10;- Add SourceType detection (RSS/NewsAPI/HTML)&#10;- Add unit tests for RSS parser:&#10;  - Valid RSS feed parsing&#10;  - Network error handling&#10;  - Missing fields handling&#10;- Add Moq for HttpClient mocking in tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Tests/RssParserTests.cs</url>
-          <line>97</line>
-          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Tests\RssParserTests.cs" initialLine="96" containingFunctionPresentation="Method 'ParseAsync_WithMissingFields_HandlesNullsGracefully'">
+          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/NewsParser.cs</url>
+          <line>44</line>
+          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\Parser\NewsParser.cs" initialLine="47" containingFunctionPresentation="Method 'ParseNewsApiAsync'">
             <startOffsets>
-              <option value="3019" />
+              <option value="1227" />
             </startOffsets>
             <endOffsets>
-              <option value="3020" />
+              <option value="1262" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="4" />
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Tests/RssParserTests.cs</url>
-          <line>133</line>
-          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Tests\RssParserTests.cs" initialLine="133" containingFunctionPresentation="Method 'ParseAsync_WithMissingFields_HandlesNullsGracefully'">
+          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs</url>
+          <line>55</line>
+          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Tests\MainParserTest.cs" initialLine="49" containingFunctionPresentation="Method 'ParseAndSaveAsync_WithRssSources_SavesArticlesToDatabase'">
             <startOffsets>
-              <option value="4039" />
+              <option value="1952" />
             </startOffsets>
             <endOffsets>
-              <option value="4098" />
+              <option value="2057" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs</url>
+          <line>61</line>
+          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Tests\MainParserTest.cs" initialLine="57" containingFunctionPresentation="Method 'ParseAndSaveAsync_WithRssSources_SavesArticlesToDatabase'">
+            <startOffsets>
+              <option value="2159" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2214" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs</url>
+          <line>58</line>
+          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Tests\MainParserTest.cs" initialLine="58" containingFunctionPresentation="Method 'ParseAndSaveAsync_WithRssSources_SavesArticlesToDatabase'">
+            <startOffsets>
+              <option value="2090" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2123" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/MainParser.cs</url>
+          <line>84</line>
+          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\Parser\MainParser.cs" initialLine="86" containingFunctionPresentation="Method 'ParseAndSaveAsync'">
+            <startOffsets>
+              <option value="3097" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3143" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

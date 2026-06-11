@@ -1,3 +1,5 @@
+using AiNewsDigestBot.Host.Features.Digest;
+using AiNewsDigestBot.Host.Features.Help;
 using AiNewsDigestBot.Host.Features.MySubs;
 using AiNewsDigestBot.Host.Features.Start;
 using AiNewsDigestBot.Host.Features.Subscribe;
@@ -8,7 +10,7 @@ using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace AiNewsDigestBot.Host.Services.TelegramBot;
+namespace AiNewsDigestBot.Host.Shared.Services;
 
 public class TelegramBotService : BackgroundService
 {
@@ -55,52 +57,145 @@ public class TelegramBotService : BackgroundService
 
         try
         {
-            if (command == "/start")
-            {
-                var startHandler = scope.ServiceProvider.GetRequiredService<StartHandler>();
-                await startHandler.HandleAsync(chatId, message.Chat.Username, message.Chat.FirstName,
-                    message.Chat.LastName);
-            }
-            else if (command == "/topics")
-            {
-                var topicsHandler = scope.ServiceProvider.GetRequiredService<TopicsHandler>();
-                await topicsHandler.HandleAsync(chatId);
-            }
-            else if (command == "/subscribe")
-            {
-                var topicName = parts.Length > 1 ? parts[1] : "";
+            // Определяем действие на основе команды или текста кнопки
+            string action;
 
-                if (string.IsNullOrEmpty(topicName))
+            switch (command)
+            {
+                case "/start":
+                    action = "start";
+                    break;
+                case "/subscribe":
+                    action = "subscribe";
+                    break;
+                case "/unsubscribe":
+                    action = "unsubscribe";
+                    break;
+                default:
+                    // Проверяем текст кнопки
+                    switch (messageText)
+                    {
+                        case "📋 Темы":
+                        case "/topics":
+                            action = "topics";
+                            break;
+                        case "📰 Мои подписки":
+                        case "/mysubs":
+                            action = "mysubs";
+                            break;
+                        case "📊 Дайджест":
+                        case "/digest":
+                            action = "digest";
+                            break;
+                        case "⚙️ Настройки":
+                        case "/settings":
+                            action = "settings";
+                            break;
+                        case "🔍 Последние новости":
+                        case "/latest":
+                            action = "latest";
+                            break;
+                        case "❓ Помощь":
+                        case "/help":
+                            action = "help";
+                            break;
+                        default:
+                            action = "unknown";
+                            break;
+                    }
+
+                    break;
+            }
+
+            // Обрабатываем действие
+            switch (action)
+            {
+                case "start":
                 {
-                    await bot.SendMessage(chatId, "❌ Укажите тему. Пример: /subscribe Technology");
-                    return;
+                    var startHandler = scope.ServiceProvider.GetRequiredService<StartHandler>();
+                    await startHandler.HandleAsync(chatId, message.Chat.Username, message.Chat.FirstName,
+                        message.Chat.LastName);
+                    break;
                 }
 
-                var subscribeHandler = scope.ServiceProvider.GetRequiredService<SubscribeHandler>();
-                await subscribeHandler.HandleAsync(chatId, topicName);
-            }
-
-            else if (command == "/unsubscribe")
-            {
-                var topicName = parts.Length > 1 ? parts[1] : "";
-
-                if (string.IsNullOrEmpty(topicName))
+                case "topics":
                 {
-                    await bot.SendMessage(chatId, "❌ Укажите тему. Пример: /unsubscribe Technology");
-                    return;
+                    var topicsHandler = scope.ServiceProvider.GetRequiredService<TopicsHandler>();
+                    await topicsHandler.HandleAsync(chatId);
+                    break;
                 }
 
-                var unsubscribeHandler = scope.ServiceProvider.GetRequiredService<UnsubscribeHandler>();
-                await unsubscribeHandler.HandleAsync(chatId, topicName);
-            }
-            else if (command == "/mysubs")
-            {
-                var mySubsHandler = scope.ServiceProvider.GetRequiredService<MySubsHandler>();
-                await mySubsHandler.HandleAsync(chatId);
-            }
-            else
-            {
-                await bot.SendMessage(chatId, "❓ Неизвестная команда. Используйте /start");
+                case "subscribe":
+                {
+                    var topicName = parts.Length > 1 ? parts[1] : "";
+
+                    if (string.IsNullOrEmpty(topicName))
+                    {
+                        await bot.SendMessage(chatId, "❌ Укажите тему. Пример: /subscribe Technology");
+                        return;
+                    }
+
+                    var subscribeHandler = scope.ServiceProvider.GetRequiredService<SubscribeHandler>();
+                    await subscribeHandler.HandleAsync(chatId, topicName);
+                    break;
+                }
+
+                case "unsubscribe":
+                {
+                    var topicName = parts.Length > 1 ? parts[1] : "";
+
+                    if (string.IsNullOrEmpty(topicName))
+                    {
+                        await bot.SendMessage(chatId, "❌ Укажите тему. Пример: /unsubscribe Technology");
+                        return;
+                    }
+
+                    var unsubscribeHandler = scope.ServiceProvider.GetRequiredService<UnsubscribeHandler>();
+                    await unsubscribeHandler.HandleAsync(chatId, topicName);
+                    break;
+                }
+
+                case "mysubs":
+                {
+                    var mySubsHandler = scope.ServiceProvider.GetRequiredService<MySubsHandler>();
+                    await mySubsHandler.HandleAsync(chatId);
+                    break;
+                }
+
+                case "help":
+                {
+                    var helpHandler = scope.ServiceProvider.GetRequiredService<HelpHandler>();
+                    await helpHandler.ShowHelpAsync(chatId);
+                    break;
+                }
+
+                case "digest":
+                {
+                    var digestHandler = scope.ServiceProvider.GetRequiredService<DigestHandler>();
+                    await digestHandler.HandleAsync(chatId);
+                    break;
+                }
+
+                case "settings":
+                {
+                    // TODO: добавить SettingsHandler позже
+                    await bot.SendMessage(chatId, "⚙️ Настройка времени рассылки появится позже!");
+                    break;
+                }
+
+                case "latest":
+                {
+                    // TODO: добавить LatestHandler позже
+                    await bot.SendMessage(chatId, "📰 Последние новости появятся после добавления парсера!");
+                    break;
+                }
+
+                case "unknown":
+                default:
+                {
+                    await bot.SendMessage(chatId, "❓ Неизвестная команда. Используйте /start или кнопки меню");
+                    break;
+                }
             }
         }
         catch (Exception ex)
@@ -128,7 +223,6 @@ public class TelegramBotService : BackgroundService
                 return;
             }
 
-            // 🔥 Новая обработка: возврат к списку всех тем
             if (data == "back_to_topics")
             {
                 var topicsHandler = scope.ServiceProvider.GetRequiredService<TopicsHandler>();
@@ -137,7 +231,6 @@ public class TelegramBotService : BackgroundService
                 return;
             }
 
-            // 🔥 Новая обработка: отписка от темы из /mysubs
             if (data != null && data.StartsWith("unsubscribe_"))
             {
                 var topicName = data.Replace("unsubscribe_", "");
@@ -145,7 +238,6 @@ public class TelegramBotService : BackgroundService
                 var unsubscribeHandler = scope.ServiceProvider.GetRequiredService<UnsubscribeHandler>();
                 await unsubscribeHandler.HandleAsync(chatId, topicName);
 
-                // Показываем обновлённый список подписок
                 var mySubsHandler = scope.ServiceProvider.GetRequiredService<MySubsHandler>();
                 await mySubsHandler.HandleAsync(chatId);
 

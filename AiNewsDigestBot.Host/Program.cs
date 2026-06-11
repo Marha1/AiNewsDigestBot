@@ -1,10 +1,16 @@
+using AiNewsDigestBot.Host.Features.Digest;
+using AiNewsDigestBot.Host.Features.Help;
 using AiNewsDigestBot.Host.Features.MySubs;
 using AiNewsDigestBot.Host.Features.Start;
 using AiNewsDigestBot.Host.Features.Subscribe;
 using AiNewsDigestBot.Host.Features.Topics;
 using AiNewsDigestBot.Host.Features.Unsubscribe;
-using AiNewsDigestBot.Host.Services.TelegramBot;
 using AiNewsDigestBot.Host.Shared.Data;
+using AiNewsDigestBot.Host.Shared.Services;
+using AiNewsDigestBot.Host.Shared.Services.ChatService.Implementations;
+using AiNewsDigestBot.Host.Shared.Services.ChatService.Interfaces;
+using AiNewsDigestBot.Host.Shared.Services.Parser;
+using AiNewsDigestBot.Host.Shared.Services.Parser.TopicDetected;
 using Microsoft.EntityFrameworkCore;
 using Telegram.Bot;
 
@@ -25,9 +31,15 @@ builder.Services.AddScoped<StartHandler>();
 builder.Services.AddScoped<TopicsHandler>();
 builder.Services.AddScoped<SubscribeHandler>();
 builder.Services.AddScoped<UnsubscribeHandler>();
-builder.Services.AddHttpClient();
 builder.Services.AddScoped<MySubsHandler>();
+builder.Services.AddScoped<HelpHandler>();
+builder.Services.AddScoped<TopicDetector>();
+builder.Services.AddScoped<MainNewsParser>();
+builder.Services.AddScoped<DigestHandler>();
+builder.Services.AddScoped<IChatService, ChatService>();
 
+
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

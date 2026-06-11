@@ -1,6 +1,7 @@
 using System.Xml;
 using AiNewsDigestBot.Host.Shared.Data.Entity;
 using AiNewsDigestBot.Host.Shared.Data.Enums;
+using Newtonsoft.Json;
 
 namespace AiNewsDigestBot.Host.Shared.Services.Parser;
 
@@ -15,37 +16,85 @@ public class NewsParser
         _newApikey = config["NewsApi:Key"];
     }
 
-    public async Task<List<Article>> ParseAsync(string url, string sourceName, string? defaultCategory = null)
+    public async Task<List<Article>> ParseAsync(string url, int limit = 25)
     {
         try
         {
             var sourceType = await DetectSource(url);
-            return sourceType switch
+            var articles = sourceType switch
             {
-                SourceType.Rss => await ParseRssAsync(url, sourceName, defaultCategory)
+                SourceType.Rss => await ParseRssAsync(url),
+                SourceType.NewsApi => await ParseNewsApiAsync(url),
+                _ => new List<Article>()
             };
+
+            return articles.Take(limit).ToList();
         }
-        catch (HttpRequestException ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Network error for {url}: {ex.Message}");
+            Console.WriteLine($"Parse error for {url}: {ex.Message}");
             return new List<Article>();
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-        
     }
 
-    private async Task<List<Article>> ParseRssAsync(string url, string sourceName, string? defaultCategory)
+    /// <summary>
+    ///     Парсинг NewsAPI
+    /// </summary>
+    private async Task<List<Article>> ParseNewsApiAsync(string url)
     {
         var articles = new List<Article>();
+
+        try
+        {
+            var apiKeyParam = url.Contains("?") ? $"&apiKey={_newApikey}" : $"?apiKey={_newApikey}";
+            var fullUrl = url + apiKeyParam;
+            var response = await _client.GetStringAsync(fullUrl);
+            var result = JsonConvert.DeserializeObject<NewsApiResponse>(response);
+
+            if (result?.Articles != null)
+                foreach (var item in result.Articles)
+                {
+                    var article = CreateArticle(
+                        item.Title ?? "",
+                        item.Url ?? "",
+                        item.Description ?? "",
+                        item.PublishedAt?.ToString() ?? "",
+                        null,
+                        null
+                    );
+                    articles.Add(article);
+                }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"NewsAPI parse error for {url}: {ex.Message}");
+        }
+
+        return articles;
+    }
+
+
+    private async Task<List<Article>> ParseRssAsync(string url)
+    {
+        var articles = new List<Article>();
+        var sourceName = "Unknown RSS";
+
         try
         {
             var content = await _client.GetStringAsync(url);
             var doc = new XmlDocument();
             doc.LoadXml(content);
+
+            var channelNode = doc.SelectSingleNode("//channel/title");
+            if (channelNode != null && !string.IsNullOrWhiteSpace(channelNode.InnerText))
+            {
+                sourceName = channelNode.InnerText.Trim();
+                if (sourceName.Contains(":"))
+                    sourceName = sourceName.Split(':')[0].Trim();
+                if (sourceName.Contains("|"))
+                    sourceName = sourceName.Split('|')[0].Trim();
+            }
+
             var items = doc.SelectNodes("//item");
             if (items != null)
                 foreach (XmlNode item in items)
@@ -55,16 +104,15 @@ public class NewsParser
                         item.SelectSingleNode("link")?.InnerText ?? "",
                         item.SelectSingleNode("description")?.InnerText ?? "",
                         item.SelectSingleNode("pubDate")?.InnerText ?? "",
-                        sourceName,
-                        defaultCategory
+                        sourceName, // ← передаём название источника
+                        null
                     );
                     articles.Add(article);
                 }
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            Console.WriteLine($"RSS parse error for {url}: {e.Message}");
         }
 
         return articles;
@@ -82,20 +130,14 @@ public class NewsParser
             Title = title,
             Url = link,
             Description = description,
-            Source = sourceName,
             Category = defaultCategory,
-            PublishedAt = ParseDate(pubDate),
-            ParsedAt = DateTime.UtcNow,
-            IsSummarized = false
+            PublishedAt = DateTime.TryParse(pubDate, out var date)
+                ? DateTime.SpecifyKind(date, DateTimeKind.Utc)
+                : DateTime.UtcNow,
+            ParsedAt = DateTime.UtcNow
         };
     }
 
-    private DateTime ParseDate(string dateString)
-    {
-        if (DateTime.TryParse(dateString, out var date))
-            return date;
-        return DateTime.UtcNow;
-    }
 
     private async Task<SourceType> DetectSource(string url)
     {
@@ -104,5 +146,10 @@ public class NewsParser
         if (url.Contains(".rss") || url.Contains("/rss") || url.Contains("/feed"))
             return SourceType.Rss;
         return SourceType.Html;
+    }
+
+    private class NewsApiResponse
+    {
+        public List<NewsApiArticle> Articles { get; } = new();
     }
 }

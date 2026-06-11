@@ -32,11 +32,7 @@ namespace AiNewsDigestBot.Host.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<bool>("IsSummarized")
-                        .HasColumnType("boolean");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("ParsedAt")
                         .ValueGeneratedOnAdd()
@@ -46,35 +42,45 @@ namespace AiNewsDigestBot.Host.Migrations
                     b.Property<DateTime>("PublishedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Source")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<Guid>("SourceId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Summary")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PublishedAt");
 
-                    b.HasIndex("Source");
+                    b.HasIndex("SourceId");
 
                     b.HasIndex("Url")
                         .IsUnique();
 
                     b.ToTable("Articles", (string)null);
+                });
+
+            modelBuilder.Entity("AiNewsDigestBot.Host.Shared.Data.Entity.Source", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sources");
                 });
 
             modelBuilder.Entity("AiNewsDigestBot.Host.Shared.Data.Entity.Subscription", b =>
@@ -181,6 +187,17 @@ namespace AiNewsDigestBot.Host.Migrations
                     b.ToTable("UserSettings", (string)null);
                 });
 
+            modelBuilder.Entity("AiNewsDigestBot.Host.Shared.Data.Entity.Article", b =>
+                {
+                    b.HasOne("AiNewsDigestBot.Host.Shared.Data.Entity.Source", "Source")
+                        .WithMany("Articles")
+                        .HasForeignKey("SourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Source");
+                });
+
             modelBuilder.Entity("AiNewsDigestBot.Host.Shared.Data.Entity.Subscription", b =>
                 {
                     b.HasOne("AiNewsDigestBot.Host.Shared.Data.Entity.User", "User")
@@ -201,6 +218,11 @@ namespace AiNewsDigestBot.Host.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AiNewsDigestBot.Host.Shared.Data.Entity.Source", b =>
+                {
+                    b.Navigation("Articles");
                 });
 
             modelBuilder.Entity("AiNewsDigestBot.Host.Shared.Data.Entity.User", b =>

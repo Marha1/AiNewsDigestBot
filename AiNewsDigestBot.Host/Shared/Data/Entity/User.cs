@@ -10,7 +10,7 @@ public class User
     public DateTime CreatedAt { get; set; }
     public DateTime? LastActiveAt { get; set; }
     public bool IsActive { get; set; }
-    
+
     public ICollection<Subscription> Subscriptions { get; set; } = new List<Subscription>();
     public UserSettings? Settings { get; set; }
 }

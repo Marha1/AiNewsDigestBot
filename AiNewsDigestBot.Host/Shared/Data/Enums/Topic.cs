@@ -1,7 +1,7 @@
 namespace AiNewsDigestBot.Host.Shared.Data.Enum;
 
 /// <summary>
-/// Доступные темы для подписки
+///     Доступные темы для подписки
 /// </summary>
 public enum Topic
 {

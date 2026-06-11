@@ -7,9 +7,9 @@ public class Article
     public string Url { get; set; } = string.Empty;
     public string? Description { get; set; }
     public string? Summary { get; set; }
-    public string Source { get; set; } = string.Empty;
     public string? Category { get; set; }
     public DateTime PublishedAt { get; set; }
     public DateTime ParsedAt { get; set; }
-    public bool IsSummarized { get; set; }
+    public Guid SourceId { get; set; }
+    public Source Source { get; set; } = null!;
 }
