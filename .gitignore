@@ -1,0 +1,6 @@
+AiNewsDigestBot.Host/appsettings.json
+AiNewsDigestBot.Host/appsettings.*.json
+**/bin/
+**/obj/
+AiNewsDigestBot.Tests/bin/
+AiNewsDigestBot.Tests/obj/

@@ -1,4 +1,4 @@
-using AiNewsDigestBot.Host.Shared.Data.Enum;
+using AiNewsDigestBot.Host.Shared.Data.Enums;
 
 namespace AiNewsDigestBot.Host.Shared.Data.Entity;
 

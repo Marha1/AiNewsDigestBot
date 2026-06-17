@@ -14,16 +14,16 @@ namespace AiNewsDigestBot.Tests;
 
 public class MainParserTest : IDisposable
 {
+    private readonly ArticleService _articleService;
     private readonly ChatService _chatService;
     private readonly IConfiguration _config;
     private readonly AppDbContext _dbContext;
     private readonly HttpClient _httpClient;
     private readonly IHttpClientFactory _httpFactory;
     private readonly ILogger<MainNewsParser> _logger;
+    private readonly SourceService _sourceService;
     private readonly string _testDbPath;
     private readonly TopicDetector _topicDetector;
-    private readonly ArticleService _articleService;
-    private readonly SourceService _sourceService;
 
     public MainParserTest()
     {
@@ -66,7 +66,7 @@ public class MainParserTest : IDisposable
     public async Task ParseAndSaveAsync_WithRssSources_SavesArticlesToDatabase()
     {
         // Arrange
-  var parser = new MainNewsParser(
+        var parser = new MainNewsParser(
             _httpFactory,
             _config,
             _logger,

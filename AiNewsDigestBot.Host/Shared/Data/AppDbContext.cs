@@ -26,6 +26,7 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new SourceConfiguration());
         modelBuilder.ApplyConfiguration(new SubscriptionConfiguration());
         modelBuilder.ApplyConfiguration(new UserSettingsConfiguration());
         modelBuilder.ApplyConfiguration(new ArticleConfiguration());

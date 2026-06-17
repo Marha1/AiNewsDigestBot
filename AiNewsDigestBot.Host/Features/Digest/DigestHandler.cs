@@ -1,27 +1,35 @@
 using System.Net;
 using System.Text.RegularExpressions;
-using AiNewsDigestBot.Host.Shared.Data;
-using Microsoft.EntityFrameworkCore;
+using AiNewsDigestBot.Host.Shared.Data.Entity;
+using AiNewsDigestBot.Host.Shared.Services;
 using Telegram.Bot;
+using Telegram.Bot.Types.Enums;
 
 namespace AiNewsDigestBot.Host.Features.Digest;
 
 public class DigestHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly AppDbContext _db;
+    private readonly ILogger<DigestHandler> _logger;
+    private readonly UserService _userService;
+    private readonly ArticleService _articleService;
 
-    public DigestHandler(AppDbContext db, ITelegramBotClient bot)
+    public DigestHandler(
+        ITelegramBotClient bot,
+        ILogger<DigestHandler> logger,
+        UserService userService,
+        ArticleService articleService)
     {
-        _db = db;
         _bot = bot;
+        _logger = logger;
+        _userService = userService;
+        _articleService = articleService;
     }
 
     public async Task HandleAsync(long chatId)
     {
-        var user = await _db.Users
-            .Include(u => u.Subscriptions)
-            .FirstOrDefaultAsync(u => u.TelegramId == chatId);
+        var user = await _userService.GetUserWithSettingsAndSubscriptionsAsync(chatId);
+            
         if (user == null)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
@@ -29,17 +37,16 @@ public class DigestHandler
         }
 
         var subscribedTopics = user.Subscriptions.Select(s => s.Topic.ToString()).ToList();
+        
         if (!subscribedTopics.Any())
         {
             await _bot.SendMessage(chatId, "📭 У вас нет подписок. Используйте /topics");
             return;
         }
 
-        var articles = await _db.Articles
-            .Where(a => subscribedTopics.Contains(a.Category))
-            .OrderByDescending(a => a.PublishedAt)
-            .Take(10)
-            .ToListAsync();
+        var limit = user.Settings?.ArticlesPerDigest ?? 10;
+        
+        var articles = await _articleService.GetArticlesByTopicsAsync(subscribedTopics, limit);
 
         if (!articles.Any())
         {
@@ -47,8 +54,13 @@ public class DigestHandler
             return;
         }
 
-        var header = $"📰 Ваш дайджест ({articles.Count} статей)\n\n";
-        List<string> messages = new();
+        await SendDigestInternalAsync(chatId, articles);
+    }
+
+    private async Task SendDigestInternalAsync(long chatId, List<Article> articles)
+    {
+        var header = $"📰 *Ваш дайджест* ({articles.Count} статей)\n\n";
+        var messages = new List<string>();
         var currentMessage = header;
 
         foreach (var article in articles)
@@ -62,12 +74,12 @@ public class DigestHandler
             var category = StripHtml(article.Category ?? "Без категории");
             var url = article.Url;
 
-            var articleText = $"{title}\n📁 {category}\n{summary}\n🔗 {url}\n\n";
+            var articleText = $"*{title}*\n📁 {category}\n{summary}\n[Читать далее]({url})\n\n";
 
             if ((currentMessage + articleText).Length > 4000)
             {
                 messages.Add(currentMessage);
-                currentMessage = "📰 Дайджест (продолжение)\n\n";
+                currentMessage = "📰 *Дайджест (продолжение)*\n\n";
             }
 
             currentMessage += articleText;
@@ -76,18 +88,16 @@ public class DigestHandler
         messages.Add(currentMessage);
 
         foreach (var msg in messages)
-            // Отправляем как обычный текст (без parseMode)
-            await _bot.SendMessage(chatId, msg);
+        {
+            await _bot.SendMessage(chatId, msg, parseMode: ParseMode.Markdown);
+        }
     }
 
     private string StripHtml(string input)
     {
         if (string.IsNullOrEmpty(input)) return "";
-        // Удаляем HTML-теги
         var noTags = Regex.Replace(input, "<.*?>", string.Empty);
-        // Декодируем HTML-сущности (&nbsp; &lt; и т.д.)
         noTags = WebUtility.HtmlDecode(noTags);
-        // Заменяем множественные пробелы и переносы строк на один пробел
         noTags = Regex.Replace(noTags, @"\s+", " ");
         return noTags.Trim();
     }

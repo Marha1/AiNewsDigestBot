@@ -1,5 +1,4 @@
-using AiNewsDigestBot.Host.Shared.Data;
-using Microsoft.EntityFrameworkCore;
+using AiNewsDigestBot.Host.Shared.Services;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -9,28 +8,26 @@ namespace AiNewsDigestBot.Host.Features.MySubs;
 public class MySubsHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly AppDbContext _db;
+    private readonly UserService _userService;
+    private readonly SubscriptionService _subscriptionService;
 
-    public MySubsHandler(AppDbContext db, ITelegramBotClient bot)
+    public MySubsHandler(ITelegramBotClient bot, UserService userService, SubscriptionService subscriptionService)
     {
-        _db = db;
         _bot = bot;
+        _userService = userService;
+        _subscriptionService = subscriptionService;
     }
 
     public async Task HandleAsync(long chatId)
     {
-        // Находим пользователя
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.TelegramId == chatId);
+        var user = await _userService.GetUserAsync(chatId);
         if (user == null)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
             return;
         }
 
-        var subscriptions = await _db.Subscriptions
-            .Where(s => s.UserId == user.Id)
-            .Select(s => s.Topic)
-            .ToListAsync();
+        var subscriptions = await _subscriptionService.GetUserSubscriptionsAsync(user.Id);
 
         if (!subscriptions.Any())
         {
@@ -43,10 +40,10 @@ public class MySubsHandler
         // Создаём клавиатуру с кнопками для отписки
         var inlineKeyboard = new List<List<InlineKeyboardButton>>();
 
-        foreach (var topic in subscriptions)
+        foreach (var subscription in subscriptions)
         {
             var row = new List<InlineKeyboardButton>();
-            row.Add(InlineKeyboardButton.WithCallbackData($"❌ Отписаться от {topic}", $"unsubscribe_{topic}"));
+            row.Add(InlineKeyboardButton.WithCallbackData($"❌ Отписаться от {subscription.Topic}", $"unsubscribe_{subscription.Topic}"));
             inlineKeyboard.Add(row);
         }
 
@@ -57,7 +54,8 @@ public class MySubsHandler
         var keyboard = new InlineKeyboardMarkup(inlineKeyboard);
 
         var message = "📋 *Ваши подписки:*\n\n";
-        foreach (var topic in subscriptions) message += $"✅ {topic}\n";
+        foreach (var subscription in subscriptions) 
+            message += $"✅ {subscription.Topic}\n";
 
         message += "\n👇 Нажмите на кнопку, чтобы отписаться";
 

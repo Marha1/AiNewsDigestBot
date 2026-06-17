@@ -1,5 +1,4 @@
-using AiNewsDigestBot.Host.Shared.Data;
-using AiNewsDigestBot.Host.Shared.Data.Entity;
+using AiNewsDigestBot.Host.Shared.Services;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -9,67 +8,29 @@ namespace AiNewsDigestBot.Host.Features.Start;
 public class StartHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly AppDbContext _db;
+    private readonly UserService _userService;
 
-    public StartHandler(AppDbContext db, ITelegramBotClient bot)
+    public StartHandler(ITelegramBotClient bot, UserService userService)
     {
-        _db = db;
         _bot = bot;
+        _userService = userService;
     }
 
     public async Task HandleAsync(long chatId, string? username, string? firstName, string? lastName)
     {
-        // Проверяем, есть ли пользователь
-        var user = _db.Users.FirstOrDefault(u => u.TelegramId == chatId);
         var isNewUser = false;
+        var user = await _userService.GetUserAsync(chatId);
 
         if (user == null)
         {
-            // Создаём нового
-            user = new User
-            {
-                Id = Guid.NewGuid(),
-                TelegramId = chatId,
-                UserName = username,
-                FirstName = firstName,
-                LastName = lastName,
-                CreatedAt = DateTime.UtcNow,
-                IsActive = true
-            };
-            _db.Users.Add(user);
-
-            // Настройки по умолчанию
-            _db.UserSettings.Add(new UserSettings
-            {
-                Id = Guid.NewGuid(),
-                UserId = user.Id,
-                DigestHour = 9,
-                DigestMinute = 0,
-                ArticlesPerDigest = 10,
-                IsEnabled = true
-            });
-
-            await _db.SaveChangesAsync();
+            await _userService.AddUserAsync(chatId, username, firstName, lastName);
             isNewUser = true;
         }
         else
         {
-            user.LastActiveAt = DateTime.UtcNow;
-            await _db.SaveChangesAsync();
+            await _userService.UpdateLastActiveAsync(chatId);
         }
-
-        // Создаём клавиатуру с кнопками
-        var keyboard = new ReplyKeyboardMarkup(new[]
-        {
-            new[] { new KeyboardButton("📋 Темы"), new KeyboardButton("📰 Мои подписки") },
-            new[] { new KeyboardButton("📊 Дайджест"), new KeyboardButton("⚙️ Настройки") },
-            new[] { new KeyboardButton("🔍 Последние новости"), new KeyboardButton("❓ Помощь") }
-        })
-        {
-            ResizeKeyboard = true, // Подгоняем размер под экран
-            OneTimeKeyboard = false // Клавиатура не скрывается после нажатия
-        };
-
+        var keyboard = GetMainKeyboard();
         string message;
 
         if (isNewUser)
@@ -89,5 +50,20 @@ public class StartHandler
             message,
             ParseMode.Markdown,
             replyMarkup: keyboard);
+    }
+
+    public ReplyKeyboardMarkup GetMainKeyboard()
+    {
+        return new ReplyKeyboardMarkup(new[]
+        {
+            new[] { new KeyboardButton("📋 Темы"), new KeyboardButton("📰 Мои подписки") },
+            new[] { new KeyboardButton("📊 Дайджест"), new KeyboardButton("⚙️ Настройки") },
+            new[] { new KeyboardButton("📰 Последние новости"), new KeyboardButton("❓ Помощь") },
+            new[] { new KeyboardButton("🔍 Поиск") }
+        })
+        {
+            ResizeKeyboard = true,
+            OneTimeKeyboard = false
+        };
     }
 }

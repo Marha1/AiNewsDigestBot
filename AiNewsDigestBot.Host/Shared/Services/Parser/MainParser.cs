@@ -7,15 +7,14 @@ public class MainNewsParser
 {
     private const int DelayForNewsApiMs = 1000;
     private const int MaxArticlesPerSource = 15;
-    
+    private const int DelayBetweenAiCallsMs = 500; 
+    private readonly ArticleService _articleService;
     private readonly IChatService _chatService;
     private readonly IConfiguration _config;
     private readonly IHttpClientFactory _httpFactory;
     private readonly ILogger<MainNewsParser> _logger;
-    private readonly TopicDetector _topicDetector;
-    private readonly ArticleService _articleService;
     private readonly SourceService _sourceService;
-
+    private readonly TopicDetector _topicDetector;
 
     public MainNewsParser(
         IHttpClientFactory httpFactory,
@@ -23,7 +22,8 @@ public class MainNewsParser
         ILogger<MainNewsParser> logger,
         TopicDetector topicDetector,
         IChatService chatService,
-        ArticleService articleService,SourceService sourceService)  
+        ArticleService articleService,
+        SourceService sourceService)
     {
         _httpFactory = httpFactory;
         _config = config;
@@ -50,39 +50,68 @@ public class MainNewsParser
         {
             try
             {
-                
                 // 1. Парсим с лимитом
                 var articles = await parser.ParseAsync(source.Url, MaxArticlesPerSource);
                 if (articles == null || articles.Count == 0)
                     continue;
 
-                // 2. Дедупликация через ArticleService
+                // 2. Дедупликация
                 var newArticles = await _articleService.FilterNewArticlesAsync(articles);
+                
+                var skippedCount = articles.Count - newArticles.Count;
+                if (skippedCount > 0)
+                {
+                    _logger.LogInformation("Skipped {SkippedCount} duplicate articles from {SourceName}", 
+                        skippedCount, source);
+                }
+                
                 if (newArticles.Count == 0)
                 {
+                    _logger.LogInformation("All {TotalCount} articles from {SourceName} are duplicates, skipping", 
+                        articles.Count, source);
                     continue;
                 }
 
-                // 3. Обрабатываем только новые статьи
+                // 3. Обрабатываем новые статьи
+                int summarizedCount = 0;
+                int failedCount = 0;
+
                 foreach (var article in newArticles)
                 {
-                    // Категория
-                    var detectedCategory = _topicDetector.Detect(article.Title, article.Description);
-                    article.Category = detectedCategory?.ToString()  ?? "General";
-                    
-                    // Связь с источником
-                    article.SourceId = source.Id;
-                    
-                    // Суммаризация
-                    var textToSummarize = string.IsNullOrWhiteSpace(article.Description)
-                        ? article.Title
-                        : article.Description;
-                    article.Summary = await _chatService.SummarizeAsync(textToSummarize);
+                    try
+                    {
+                        // Категория
+                        var detectedCategory = _topicDetector.Detect(article.Title, article.Description);
+                        article.Category = detectedCategory?.ToString() ?? "General";
+
+                        // Связь с источником
+                        article.SourceId = source.Id;
+
+                        // Суммаризация с задержкой
+                        var textToSummarize = string.IsNullOrWhiteSpace(article.Description)
+                            ? article.Title
+                            : article.Description;
+                        
+                        article.Summary = await _chatService.SummarizeAsync(textToSummarize);
+                        summarizedCount++;
+                        
+                        // Задержка между AI запросами (чтобы не перегружать API)
+                        await Task.Delay(DelayBetweenAiCallsMs);
+                    }
+                    catch (Exception ex)
+                    {
+                        failedCount++;
+                        _logger.LogWarning(ex, "Failed to summarize article: {Title}. Will save without summary.", 
+                            article.Title?.Length > 50 ? article.Title[..50] + "..." : article.Title);
+                        
+                        article.Summary = "⚠️ Суммаризация временно недоступна";
+                    }
                 }
 
-                // 4. Сохраняем через ArticleService
+                // 4. Сохраняем все статьи (даже те, что без суммаризации)
                 await _articleService.SaveArticlesAsync(newArticles);
-                _logger.LogInformation("Saved and summarized {Count} new articles from {Name}", newArticles.Count);
+                _logger.LogInformation("Saved {Count} articles from {SourceName} (summarized: {Summarized}, failed: {Failed})", 
+                    newArticles.Count, source, summarizedCount, failedCount);
 
                 // 5. Задержка только для NewsAPI
                 if (source.Url.Contains("newsapi.org"))
@@ -90,7 +119,7 @@ public class MainNewsParser
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error processing source {Name}");
+                _logger.LogError(ex, "Error processing source {SourceName}", source);
             }
         }
     }

@@ -1,6 +1,5 @@
-using AiNewsDigestBot.Host.Shared.Data;
-using AiNewsDigestBot.Host.Shared.Data.Enum;
-using Microsoft.EntityFrameworkCore;
+using AiNewsDigestBot.Host.Shared.Data.Enums;
+using AiNewsDigestBot.Host.Shared.Services;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -10,18 +9,20 @@ namespace AiNewsDigestBot.Host.Features.Topics;
 public class TopicsHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly AppDbContext _db;
+    private readonly UserService _userService;
+    private readonly SubscriptionService _subscriptionService;
 
-    public TopicsHandler(AppDbContext db, ITelegramBotClient bot)
+    public TopicsHandler(ITelegramBotClient bot, UserService userService, SubscriptionService subscriptionService)
     {
-        _db = db;
         _bot = bot;
+        _userService = userService;
+        _subscriptionService = subscriptionService;
     }
 
     public async Task HandleAsync(long chatId)
     {
         // Находим пользователя
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.TelegramId == chatId);
+        var user = await _userService.GetUserAsync(chatId);
         if (user == null)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
@@ -29,10 +30,7 @@ public class TopicsHandler
         }
 
         // Получаем подписки пользователя
-        var userSubscriptions = await _db.Subscriptions
-            .Where(s => s.UserId == user.Id)
-            .Select(s => s.Topic)
-            .ToListAsync();
+        var userSubscriptions = await _subscriptionService.GetUserSubscriptionTopicsAsync(user.Id);
 
         // Создаём inline клавиатуру
         var inlineKeyboard = new List<List<InlineKeyboardButton>>();

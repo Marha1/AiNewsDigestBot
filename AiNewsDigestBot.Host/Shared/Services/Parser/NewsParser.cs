@@ -118,17 +118,16 @@ public class NewsParser
         return articles;
     }
 
-    /// <summary>
-    ///     Создание объекта Article
-    /// </summary>
     private Article CreateArticle(string title, string link, string description, string pubDate,
         string sourceName, string? defaultCategory)
     {
+        var normalizedUrl = NormalizeUrl(link);
+    
         return new Article
         {
             Id = Guid.NewGuid(),
             Title = title,
-            Url = link,
+            Url = normalizedUrl,
             Description = description,
             Category = defaultCategory,
             PublishedAt = DateTime.TryParse(pubDate, out var date)
@@ -136,6 +135,17 @@ public class NewsParser
                 : DateTime.UtcNow,
             ParsedAt = DateTime.UtcNow
         };
+    }
+
+    private string NormalizeUrl(string url)
+    {
+        if (string.IsNullOrEmpty(url)) return url;
+    
+        // Убираем слеш в конце
+        url = url.TrimEnd('/');
+    
+        // Приводим к нижнему регистру
+        return url.ToLowerInvariant();
     }
 
 

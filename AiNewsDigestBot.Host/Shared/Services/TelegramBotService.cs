@@ -1,10 +1,13 @@
 using AiNewsDigestBot.Host.Features.Digest;
 using AiNewsDigestBot.Host.Features.Help;
+using AiNewsDigestBot.Host.Features.Latest;
 using AiNewsDigestBot.Host.Features.MySubs;
+using AiNewsDigestBot.Host.Features.Search;
+using AiNewsDigestBot.Host.Features.Settings;
 using AiNewsDigestBot.Host.Features.Start;
 using AiNewsDigestBot.Host.Features.Subscribe;
+using AiNewsDigestBot.Host.Features.Subscribe.Unsubscribe;
 using AiNewsDigestBot.Host.Features.Topics;
-using AiNewsDigestBot.Host.Features.Unsubscribe;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
@@ -57,9 +60,33 @@ public class TelegramBotService : BackgroundService
 
         try
         {
-            // Определяем действие на основе команды или текста кнопки
-            string action;
+            var searchState = scope.ServiceProvider.GetRequiredService<SearchStateService>();
+            var isWaitingForSearch = await searchState.IsWaitingForSearchAsync(chatId);
 
+            if (isWaitingForSearch)
+            {
+                var searchHandler = scope.ServiceProvider.GetRequiredService<SearchHandler>();
+                await searchHandler.HandleAsync(chatId, messageText);
+                return;
+            }
+
+            var settingsState = scope.ServiceProvider.GetRequiredService<SettingsStateService>();
+            var currentState = await settingsState.GetStateAsync(chatId);
+            if (currentState == "settings_time")
+            {
+                var settingsHandler = scope.ServiceProvider.GetRequiredService<SettingsHandler>();
+                await settingsHandler.HandleTimeInputAsync(chatId, messageText);
+                return;
+            }
+
+            if (currentState == "settings_count")
+            {
+                var settingsHandler = scope.ServiceProvider.GetRequiredService<SettingsHandler>();
+                await settingsHandler.HandleCountInputAsync(chatId, messageText);
+                return;
+            }
+
+            string action;
             switch (command)
             {
                 case "/start":
@@ -72,7 +99,6 @@ public class TelegramBotService : BackgroundService
                     action = "unsubscribe";
                     break;
                 default:
-                    // Проверяем текст кнопки
                     switch (messageText)
                     {
                         case "📋 Темы":
@@ -91,13 +117,21 @@ public class TelegramBotService : BackgroundService
                         case "/settings":
                             action = "settings";
                             break;
-                        case "🔍 Последние новости":
+                        case "🔍 Поиск":
+                        case "/search":
+                            action = "search";
+                            break;
+                        case "📰 Последние новости":
                         case "/latest":
                             action = "latest";
                             break;
                         case "❓ Помощь":
                         case "/help":
                             action = "help";
+                            break;
+                        case "/cancel":
+                        case "❌ Отмена":
+                            action = "cancel";
                             break;
                         default:
                             action = "unknown";
@@ -107,7 +141,6 @@ public class TelegramBotService : BackgroundService
                     break;
             }
 
-            // Обрабатываем действие
             switch (action)
             {
                 case "start":
@@ -176,17 +209,38 @@ public class TelegramBotService : BackgroundService
                     break;
                 }
 
-                case "settings":
+                case "search":
                 {
-                    // TODO: добавить SettingsHandler позже
-                    await bot.SendMessage(chatId, "⚙️ Настройка времени рассылки появится позже!");
+                    await searchState.SetWaitingForSearchAsync(chatId, true);
+
+                    var cancelHandler = scope.ServiceProvider.GetRequiredService<CancelHandler>();
+                    var cancelKeyboard = cancelHandler.GetCancelKeyboard();
+
+                    await bot.SendMessage(chatId,
+                        "🔍 Введите поисковый запрос (например: Apple или ИИ)\n\nДля отмены нажмите кнопку ниже",
+                        replyMarkup: cancelKeyboard);
+                    break;
+                }
+                case "cancel":
+                {
+                    var cancelHandler = scope.ServiceProvider.GetRequiredService<CancelHandler>();
+                    var startHandler = scope.ServiceProvider.GetRequiredService<StartHandler>();
+                    await cancelHandler.HandleAsync(chatId, startHandler);
                     break;
                 }
 
                 case "latest":
                 {
-                    // TODO: добавить LatestHandler позже
-                    await bot.SendMessage(chatId, "📰 Последние новости появятся после добавления парсера!");
+                    var latestHandler = scope.ServiceProvider.GetRequiredService<LatestHandler>();
+                    await latestHandler.HandleAsync(chatId);
+                    break;
+                }
+
+                case "settings":
+                {
+                    var settingsHandler = scope.ServiceProvider.GetRequiredService<SettingsHandler>();
+                    var сancelHandler = scope.ServiceProvider.GetRequiredService<CancelHandler>();
+                    await settingsHandler.HandleAsync(chatId, сancelHandler);
                     break;
                 }
 
@@ -249,12 +303,21 @@ public class TelegramBotService : BackgroundService
             {
                 var topicName = data.Replace("topic_", "");
 
-                var toggleHandler = scope.ServiceProvider.GetRequiredService<SubscribeHandler>();
-                await toggleHandler.HandleAsync(chatId, topicName);
+                var subscribeHandler = scope.ServiceProvider.GetRequiredService<SubscribeHandler>();
+                await subscribeHandler.HandleAsync(chatId, topicName);
 
                 var topicsHandler = scope.ServiceProvider.GetRequiredService<TopicsHandler>();
                 await topicsHandler.HandleAsync(chatId);
 
+                await bot.AnswerCallbackQuery(callbackQuery.Id);
+                return;
+            }
+
+            if (data != null && (data.StartsWith("settings_") || data == "back_to_menu"))
+            {
+                var settingsHandler = scope.ServiceProvider.GetRequiredService<SettingsHandler>();
+                var cancelHandler = scope.ServiceProvider.GetRequiredService<CancelHandler>();
+                await settingsHandler.HandleCallbackAsync(chatId, data, cancelHandler);
                 await bot.AnswerCallbackQuery(callbackQuery.Id);
             }
         }

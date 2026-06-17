@@ -1,25 +1,26 @@
-using AiNewsDigestBot.Host.Shared.Data;
-using AiNewsDigestBot.Host.Shared.Data.Enum;
-using Microsoft.EntityFrameworkCore;
+using AiNewsDigestBot.Host.Shared.Data.Enums;
+using AiNewsDigestBot.Host.Shared.Services;
 using Telegram.Bot;
 
-namespace AiNewsDigestBot.Host.Features.Unsubscribe;
+namespace AiNewsDigestBot.Host.Features.Subscribe.Unsubscribe;
 
 public class UnsubscribeHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly AppDbContext _db;
+    private readonly UserService _userService;
+    private readonly SubscriptionService _subscriptionService;
 
-    public UnsubscribeHandler(AppDbContext db, ITelegramBotClient bot)
+    public UnsubscribeHandler(ITelegramBotClient bot, UserService userService, SubscriptionService subscriptionService)
     {
-        _db = db;
         _bot = bot;
+        _userService = userService;
+        _subscriptionService = subscriptionService;
     }
 
     public async Task HandleAsync(long chatId, string topicName)
     {
         // 1. Находим пользователя
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.TelegramId == chatId);
+        var user = await _userService.GetUserAsync(chatId);
         if (user == null)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
@@ -33,21 +34,17 @@ public class UnsubscribeHandler
             return;
         }
 
-        // 3. Находим подписку
-        var subscription = await _db.Subscriptions
-            .FirstOrDefaultAsync(s => s.UserId == user.Id && s.Topic == topic);
-
-        if (subscription == null)
+        // 3. Удаляем подписку
+        var removed = await _subscriptionService.RemoveSubscriptionAsync(user.Id, topic);
+        
+        if (!removed)
         {
             await _bot.SendMessage(chatId, $"❌ Вы не подписаны на тему {topic}");
             return;
         }
 
-        _db.Subscriptions.Remove(subscription);
-        await _db.SaveChangesAsync();
-
-        user.LastActiveAt = DateTime.UtcNow;
-        await _db.SaveChangesAsync();
+        // 4. Обновляем активность пользователя
+        await _userService.UpdateLastActiveAsync(chatId);
 
         await _bot.SendMessage(chatId, $"✅ Вы отписались от темы {topic}");
     }

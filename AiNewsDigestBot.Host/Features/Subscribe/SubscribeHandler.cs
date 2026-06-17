@@ -1,7 +1,5 @@
-using AiNewsDigestBot.Host.Shared.Data;
-using AiNewsDigestBot.Host.Shared.Data.Entity;
-using AiNewsDigestBot.Host.Shared.Data.Enum;
-using Microsoft.EntityFrameworkCore;
+using AiNewsDigestBot.Host.Shared.Data.Enums;
+using AiNewsDigestBot.Host.Shared.Services;
 using Telegram.Bot;
 
 namespace AiNewsDigestBot.Host.Features.Subscribe;
@@ -9,18 +7,20 @@ namespace AiNewsDigestBot.Host.Features.Subscribe;
 public class SubscribeHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly AppDbContext _db;
+    private readonly UserService _userService;
+    private readonly SubscriptionService _subscriptionService;
 
-    public SubscribeHandler(AppDbContext db, ITelegramBotClient bot)
+    public SubscribeHandler(ITelegramBotClient bot, UserService userService, SubscriptionService subscriptionService)
     {
-        _db = db;
         _bot = bot;
+        _userService = userService;
+        _subscriptionService = subscriptionService;
     }
 
     public async Task HandleAsync(long chatId, string topicName)
     {
         // 1. Находим пользователя
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.TelegramId == chatId);
+        var user = await _userService.GetUserAsync(chatId);
         if (user == null)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
@@ -37,30 +37,20 @@ public class SubscribeHandler
         }
 
         // 3. Проверяем, не подписан ли уже
-        var existing = await _db.Subscriptions
-            .FirstOrDefaultAsync(s => s.UserId == user.Id && s.Topic == topic);
-
-        if (existing != null)
+        var isSubscribed = await _subscriptionService.IsUserSubscribedAsync(user.Id, topic);
+        if (isSubscribed)
         {
-            await _bot.SendMessage(chatId, $"❌ Вы уже подписаны на тему {topic}");
+            // Если подписан - отписываем
+            await _subscriptionService.RemoveSubscriptionAsync(user.Id, topic);
+            await _bot.SendMessage(chatId, $"❌ Вы отписались от темы {topic}");
             return;
         }
 
         // 4. Создаём подписку
-        var subscription = new Subscription
-        {
-            Id = Guid.NewGuid(),
-            UserId = user.Id,
-            Topic = topic,
-            SubscribedAt = DateTime.UtcNow
-        };
-
-        _db.Subscriptions.Add(subscription);
-        await _db.SaveChangesAsync();
+        await _subscriptionService.AddSubscriptionAsync(user.Id, topic);
 
         // 5. Обновляем активность пользователя
-        user.LastActiveAt = DateTime.UtcNow;
-        await _db.SaveChangesAsync();
+        await _userService.UpdateLastActiveAsync(chatId);
 
         // 6. Отвечаем
         await _bot.SendMessage(chatId,

@@ -1,4 +1,4 @@
-namespace AiNewsDigestBot.Host.Shared.Data.Enum;
+namespace AiNewsDigestBot.Host.Shared.Data.Enums;
 
 /// <summary>
 ///     Доступные темы для подписки
