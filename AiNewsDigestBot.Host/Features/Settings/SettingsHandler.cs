@@ -10,8 +10,8 @@ namespace AiNewsDigestBot.Host.Features.Settings;
 public class SettingsHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly UserService _userService;
     private readonly SettingsStateService _settingsState;
+    private readonly UserService _userService;
 
     public SettingsHandler(ITelegramBotClient bot, UserService userService, SettingsStateService settingsState)
     {
@@ -62,10 +62,6 @@ public class SettingsHandler
                 settings.IsEnabled
                     ? InlineKeyboardButton.WithCallbackData("🔕 Отключить рассылку", "settings_disable")
                     : InlineKeyboardButton.WithCallbackData("🔔 Включить рассылку", "settings_enable")
-            },
-            new[]
-            {
-                InlineKeyboardButton.WithCallbackData("🔙 Назад в меню", "back_to_menu")
             }
         });
 
@@ -106,11 +102,12 @@ public class SettingsHandler
                 {
                     user.Settings.IsEnabled = data == "settings_enable";
                     await _userService.UpdateUserAsync(user);
-                    
+
                     var status = user.Settings.IsEnabled ? "включена" : "отключена";
                     await _bot.SendMessage(chatId, $"✅ Рассылка {status}");
                     await SendKeyboardAsync(chatId, user.Settings);
                 }
+
                 break;
         }
     }
@@ -136,7 +133,7 @@ public class SettingsHandler
             user.Settings.DigestHour = hour;
             user.Settings.DigestMinute = minute;
             await _userService.UpdateUserAsync(user);
-            
+
             await _bot.SendMessage(chatId, $"✅ Время рассылки установлено: {hour:D2}:{minute:D2}");
             await SendKeyboardAsync(chatId, user.Settings);
         }
@@ -158,7 +155,7 @@ public class SettingsHandler
         {
             user.Settings.ArticlesPerDigest = count;
             await _userService.UpdateUserAsync(user);
-            
+
             await _bot.SendMessage(chatId, $"✅ Количество статей установлено: {count}");
             await SendKeyboardAsync(chatId, user.Settings);
         }

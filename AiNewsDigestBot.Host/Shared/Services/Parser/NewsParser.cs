@@ -1,3 +1,6 @@
+using System.Net;
+using System.ServiceModel.Syndication;
+using System.Text.RegularExpressions;
 using System.Xml;
 using AiNewsDigestBot.Host.Shared.Data.Entity;
 using AiNewsDigestBot.Host.Shared.Data.Enums;
@@ -8,12 +11,14 @@ namespace AiNewsDigestBot.Host.Shared.Services.Parser;
 public class NewsParser
 {
     private readonly HttpClient _client;
+    private readonly ILogger<NewsParser> _logger;
     private readonly string? _newApikey;
 
-    public NewsParser(HttpClient client, IConfiguration config)
+    public NewsParser(HttpClient client, IConfiguration config, ILogger<NewsParser> logger)
     {
         _client = client;
         _newApikey = config["NewsApi:Key"];
+        _logger = logger;
     }
 
     public async Task<List<Article>> ParseAsync(string url, int limit = 25)
@@ -32,26 +37,33 @@ public class NewsParser
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Parse error for {url}: {ex.Message}");
+            _logger.LogError(ex, "Parse error for {Url}: {Message}", url, ex.Message);
             return new List<Article>();
         }
     }
 
-    /// <summary>
-    ///     Парсинг NewsAPI
-    /// </summary>
     private async Task<List<Article>> ParseNewsApiAsync(string url)
     {
         var articles = new List<Article>();
 
         try
         {
+            if (string.IsNullOrEmpty(_newApikey))
+            {
+                _logger.LogWarning("NewsAPI key is not configured");
+                return articles;
+            }
+
             var apiKeyParam = url.Contains("?") ? $"&apiKey={_newApikey}" : $"?apiKey={_newApikey}";
             var fullUrl = url + apiKeyParam;
+
+            _logger.LogDebug("Fetching NewsAPI: {Url}", fullUrl);
+
             var response = await _client.GetStringAsync(fullUrl);
             var result = JsonConvert.DeserializeObject<NewsApiResponse>(response);
 
             if (result?.Articles != null)
+            {
                 foreach (var item in result.Articles)
                 {
                     var article = CreateArticle(
@@ -59,15 +71,27 @@ public class NewsParser
                         item.Url ?? "",
                         item.Description ?? "",
                         item.PublishedAt?.ToString() ?? "",
-                        null,
                         null
                     );
-                    articles.Add(article);
+
+                    if (article != null)
+                        articles.Add(article);
                 }
+
+                _logger.LogDebug("Parsed {Count} articles from NewsAPI", articles.Count);
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            _logger.LogError(ex, "HTTP error while fetching NewsAPI from {Url}: {Message}", url, ex.Message);
+        }
+        catch (JsonException ex)
+        {
+            _logger.LogError(ex, "JSON deserialization error for NewsAPI response from {Url}", url);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"NewsAPI parse error for {url}: {ex.Message}");
+            _logger.LogError(ex, "Unexpected error while parsing NewsAPI from {Url}: {Message}", url, ex.Message);
         }
 
         return articles;
@@ -77,58 +101,115 @@ public class NewsParser
     private async Task<List<Article>> ParseRssAsync(string url)
     {
         var articles = new List<Article>();
-        var sourceName = "Unknown RSS";
 
         try
         {
-            var content = await _client.GetStringAsync(url);
-            var doc = new XmlDocument();
-            doc.LoadXml(content);
+            _logger.LogDebug("Fetching RSS/Atom: {Url}", url);
 
-            var channelNode = doc.SelectSingleNode("//channel/title");
-            if (channelNode != null && !string.IsNullOrWhiteSpace(channelNode.InnerText))
+            var content = await _client.GetStringAsync(url);
+
+            using var stringReader = new StringReader(content);
+            using var xmlReader = XmlReader.Create(stringReader, new XmlReaderSettings
             {
-                sourceName = channelNode.InnerText.Trim();
-                if (sourceName.Contains(":"))
-                    sourceName = sourceName.Split(':')[0].Trim();
-                if (sourceName.Contains("|"))
-                    sourceName = sourceName.Split('|')[0].Trim();
+                DtdProcessing = DtdProcessing.Ignore,
+                XmlResolver = null
+            });
+
+            var feed = SyndicationFeed.Load(xmlReader);
+
+            if (feed?.Items == null)
+            {
+                _logger.LogWarning("No items found in feed {Url}", url);
+                return articles;
             }
 
-            var items = doc.SelectNodes("//item");
-            if (items != null)
-                foreach (XmlNode item in items)
+            foreach (var item in feed.Items)
+            {
+                var title = item.Title?.Text ?? "";
+
+                var link = item.Links.FirstOrDefault()?.Uri?.ToString() ?? "";
+
+                var description = item.Summary?.Text ?? "";
+                if (string.IsNullOrWhiteSpace(description))
                 {
-                    var article = CreateArticle(
-                        item.SelectSingleNode("title")?.InnerText ?? "",
-                        item.SelectSingleNode("link")?.InnerText ?? "",
-                        item.SelectSingleNode("description")?.InnerText ?? "",
-                        item.SelectSingleNode("pubDate")?.InnerText ?? "",
-                        sourceName, // ← передаём название источника
-                        null
-                    );
-                    articles.Add(article);
+                    var contentItem = item.Content as TextSyndicationContent;
+                    description = contentItem?.Text ?? "";
                 }
+                var pubDate = item.PublishDate.ToString("yyyy-MM-ddTHH:mm:ssZ");
+                var cleanDescription = StripHtml(description);
+                var article = CreateArticle(
+                    title,
+                    link,
+                    cleanDescription,
+                    pubDate,
+                    null
+                );
+                if (article != null)
+                    articles.Add(article);
+            }
+
+            _logger.LogDebug("Parsed {Count} articles from feed {Url}", articles.Count, url);
         }
-        catch (Exception e)
+        catch (HttpRequestException ex)
         {
-            Console.WriteLine($"RSS parse error for {url}: {e.Message}");
+            _logger.LogError(ex, "HTTP error while fetching feed from {Url}: {Message}", url, ex.Message);
+        }
+        catch (XmlException ex)
+        {
+            _logger.LogError(ex, "XML parsing error for feed from {Url}: {Message}", url, ex.Message);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unexpected error while parsing feed from {Url}: {Message}", url, ex.Message);
         }
 
         return articles;
     }
 
-    private Article CreateArticle(string title, string link, string description, string pubDate,
-        string sourceName, string? defaultCategory)
+    private string StripHtml(string html)
+    {
+        if (string.IsNullOrWhiteSpace(html))
+            return html;
+
+        try
+        {
+            // Убираем HTML-теги
+            var result = Regex.Replace(html, "<.*?>", string.Empty);
+            // Убираем лишние пробелы
+            result = Regex.Replace(result, @"\s+", " ");
+            // Декодируем HTML-сущности
+            result = WebUtility.HtmlDecode(result);
+            return result.Trim();
+        }
+        catch
+        {
+            return html;
+        }
+    }
+
+    private Article? CreateArticle(string title, string link, string description, string pubDate,
+        string? defaultCategory)
     {
         var normalizedUrl = NormalizeUrl(link);
-    
+
+        if (string.IsNullOrWhiteSpace(normalizedUrl))
+        {
+            _logger.LogWarning("Skipping article with empty URL: {Title}", title);
+            return null;
+        }
+
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            _logger.LogWarning("Skipping article with empty title: {Url}", normalizedUrl);
+            return null;
+        }
+
         return new Article
         {
             Id = Guid.NewGuid(),
             Title = title,
             Url = normalizedUrl,
-            Description = description,
+            Description = description ?? "",
             Category = defaultCategory,
             PublishedAt = DateTime.TryParse(pubDate, out var date)
                 ? DateTime.SpecifyKind(date, DateTimeKind.Utc)
@@ -140,19 +221,20 @@ public class NewsParser
     private string NormalizeUrl(string url)
     {
         if (string.IsNullOrEmpty(url)) return url;
-    
-        // Убираем слеш в конце
+
         url = url.TrimEnd('/');
-    
-        // Приводим к нижнему регистру
+
+        var questionMarkIndex = url.IndexOf('?');
+        if (questionMarkIndex > 0)
+            url = url[..questionMarkIndex];
+
         return url.ToLowerInvariant();
     }
-
 
     private async Task<SourceType> DetectSource(string url)
     {
         if (url.Contains("newsapi.org") || url.Contains("newsapi"))
-            return SourceType.NewsApi;
+            return  SourceType.NewsApi;
         if (url.Contains(".rss") || url.Contains("/rss") || url.Contains("/feed"))
             return SourceType.Rss;
         return SourceType.Html;

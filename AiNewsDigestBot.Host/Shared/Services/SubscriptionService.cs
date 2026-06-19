@@ -20,6 +20,7 @@ public class SubscriptionService
             .Where(s => s.UserId == userId)
             .ToListAsync();
     }
+
     public async Task<bool> IsUserSubscribedAsync(Guid userId, Topic topic)
     {
         return await _db.Subscriptions
@@ -40,11 +41,12 @@ public class SubscriptionService
         await _db.SaveChangesAsync();
         return subscription;
     }
+
     public async Task<bool> RemoveSubscriptionAsync(Guid userId, Topic topic)
     {
         var subscription = await _db.Subscriptions
             .FirstOrDefaultAsync(s => s.UserId == userId && s.Topic == topic);
-    
+
         if (subscription == null)
             return false;
 
@@ -52,6 +54,7 @@ public class SubscriptionService
         await _db.SaveChangesAsync();
         return true;
     }
+
     public async Task<List<Topic>> GetUserSubscriptionTopicsAsync(Guid userId)
     {
         return await _db.Subscriptions

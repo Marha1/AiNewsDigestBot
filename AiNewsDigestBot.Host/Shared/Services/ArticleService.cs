@@ -16,7 +16,7 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Дедупликация: возвращает только новые статьи (которых нет в БД)
+    ///     Дедупликация: возвращает только новые статьи (которых нет в БД)
     /// </summary>
     public async Task<List<Article>> FilterNewArticlesAsync(List<Article> articles)
     {
@@ -41,7 +41,7 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Сохраняет статьи в БД
+    ///     Сохраняет статьи в БД
     /// </summary>
     public async Task<int> SaveArticlesAsync(List<Article> articles)
     {
@@ -55,10 +55,8 @@ public class ArticleService
             .ToList();
 
         if (uniqueArticles.Count < articles.Count)
-        {
-            _logger.LogWarning("Removed {Duplicates} duplicate URLs from the batch", 
+            _logger.LogWarning("Removed {Duplicates} duplicate URLs from the batch",
                 articles.Count - uniqueArticles.Count);
-        }
 
         // 2. Проверяем, какие URL уже есть в БД
         var urls = uniqueArticles.Select(a => a.Url).ToList();
@@ -83,14 +81,14 @@ public class ArticleService
         await _db.SaveChangesAsync();
 
         var skipped = articles.Count - newArticles.Count;
-        _logger.LogInformation("Saved {Saved} new articles (skipped {Skipped} duplicates)", 
+        _logger.LogInformation("Saved {Saved} new articles (skipped {Skipped} duplicates)",
             newArticles.Count, skipped);
-        
+
         return newArticles.Count;
     }
 
     /// <summary>
-    /// Получить статьи по темам (для дайджеста)
+    ///     Получить статьи по темам (для дайджеста)
     /// </summary>
     public async Task<List<Article>> GetArticlesByTopicsAsync(List<string> topics, int limit = 10)
     {
@@ -105,11 +103,11 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Получить статьи по темам с пагинацией
+    ///     Получить статьи по темам с пагинацией
     /// </summary>
     public async Task<(List<Article> Articles, int TotalCount)> GetArticlesByTopicsPagedAsync(
-        List<string> topics, 
-        int page = 1, 
+        List<string> topics,
+        int page = 1,
         int pageSize = 10)
     {
         if (topics == null || topics.Count == 0)
@@ -129,7 +127,7 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Получить статьи для дайджеста пользователя (по подпискам)
+    ///     Получить статьи для дайджеста пользователя (по подпискам)
     /// </summary>
     public async Task<List<Article>> GetDigestByTopicsAsync(List<string> topics, int limit = 10)
     {
@@ -144,7 +142,7 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Последние статьи без фильтра
+    ///     Последние статьи без фильтра
     /// </summary>
     public async Task<List<Article>> GetLatestArticlesAsync(int limit = 10)
     {
@@ -155,7 +153,7 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Последние статьи с пагинацией
+    ///     Последние статьи с пагинацией
     /// </summary>
     public async Task<List<Article>> GetLatestArticlesPagedAsync(int page, int pageSize)
     {
@@ -167,7 +165,7 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Поиск статей с пагинацией
+    ///     Поиск статей с пагинацией
     /// </summary>
     public async Task<List<Article>> SearchArticlesPagedAsync(string query, int page, int pageSize)
     {
@@ -182,7 +180,7 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Поиск по заголовку, описанию и суммаризации
+    ///     Поиск по заголовку, описанию и суммаризации
     /// </summary>
     public async Task<List<Article>> SearchArticlesAsync(string query, int limit = 10)
     {
@@ -196,7 +194,7 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Проверка существования статьи по URL
+    ///     Проверка существования статьи по URL
     /// </summary>
     public async Task<bool> ArticleExistsAsync(string url)
     {
@@ -204,7 +202,7 @@ public class ArticleService
     }
 
     /// <summary>
-    /// Получить статью по ID
+    ///     Получить статью по ID
     /// </summary>
     public async Task<Article?> GetArticleByIdAsync(Guid id)
     {

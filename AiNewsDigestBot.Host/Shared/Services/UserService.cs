@@ -1,4 +1,5 @@
 // Shared/Services/UserService.cs
+
 using AiNewsDigestBot.Host.Shared.Data;
 using AiNewsDigestBot.Host.Shared.Data.Entity;
 using AiNewsDigestBot.Host.Shared.Data.Enums;
@@ -18,7 +19,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Получить пользователя по Telegram ID с настройками и подписками
+    ///     Получить пользователя по Telegram ID с настройками и подписками
     /// </summary>
     public async Task<User?> GetUserWithSettingsAndSubscriptionsAsync(long telegramId)
     {
@@ -29,7 +30,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Получить пользователя с настройками
+    ///     Получить пользователя с настройками
     /// </summary>
     public async Task<User?> GetUserWithSettingsAsync(long telegramId)
     {
@@ -37,8 +38,9 @@ public class UserService
             .Include(u => u.Settings)
             .FirstOrDefaultAsync(u => u.TelegramId == telegramId);
     }
+
     /// <summary>
-    /// Получить пользователя по Telegram ID (без связанных данных)
+    ///     Получить пользователя по Telegram ID (без связанных данных)
     /// </summary>
     public async Task<User?> GetUserAsync(long telegramId)
     {
@@ -46,7 +48,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Получить пользователя с подписками
+    ///     Получить пользователя с подписками
     /// </summary>
     public async Task<User?> GetUserWithSubscriptionsAsync(long telegramId)
     {
@@ -56,7 +58,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Получить всех пользователей с включённой рассылкой
+    ///     Получить всех пользователей с включённой рассылкой
     /// </summary>
     public async Task<List<User>> GetAllActiveUsersWithSettingsAsync()
     {
@@ -68,14 +70,14 @@ public class UserService
     }
 
     /// <summary>
-    /// Получить пользователей для рассылки по времени
+    ///     Получить пользователей для рассылки по времени
     /// </summary>
     public async Task<List<User>> GetUsersForDigestAsync(int hour, int minute)
     {
         return await _db.Users
             .Include(u => u.Settings)
             .Include(u => u.Subscriptions)
-            .Where(u => u.Settings != null && 
+            .Where(u => u.Settings != null &&
                         u.Settings.IsEnabled &&
                         u.Settings.DigestHour == hour &&
                         u.Settings.DigestMinute == minute)
@@ -83,7 +85,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Получить пользователя по ID
+    ///     Получить пользователя по ID
     /// </summary>
     public async Task<User?> GetUserByIdAsync(Guid id)
     {
@@ -91,7 +93,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Проверить, существует ли пользователь
+    ///     Проверить, существует ли пользователь
     /// </summary>
     public async Task<bool> UserExistsAsync(long telegramId)
     {
@@ -99,7 +101,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Добавить пользователя с настройками по умолчанию
+    ///     Добавить пользователя с настройками по умолчанию
     /// </summary>
     public async Task<User> AddUserAsync(long telegramId, string? username, string? firstName, string? lastName)
     {
@@ -114,7 +116,7 @@ public class UserService
         };
 
         _db.Users.Add(user);
-        
+
         // Настройки по умолчанию
         _db.UserSettings.Add(new UserSettings
         {
@@ -128,12 +130,12 @@ public class UserService
 
         await _db.SaveChangesAsync();
         _logger.LogInformation("Added new user {TelegramId}", telegramId);
-        
+
         return user;
     }
 
     /// <summary>
-    /// Обновить пользователя
+    ///     Обновить пользователя
     /// </summary>
     public async Task UpdateUserAsync(User user)
     {
@@ -143,7 +145,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Обновить время последней активности
+    ///     Обновить время последней активности
     /// </summary>
     public async Task UpdateLastActiveAsync(long telegramId)
     {
@@ -156,14 +158,14 @@ public class UserService
     }
 
     /// <summary>
-    /// Получить темы подписок пользователя
+    ///     Получить темы подписок пользователя
     /// </summary>
     public async Task<List<Topic>> GetUserTopicsAsync(long telegramId)
     {
         var user = await _db.Users
             .Include(u => u.Subscriptions)
             .FirstOrDefaultAsync(u => u.TelegramId == telegramId);
-            
+
         return user?.Subscriptions.Select(s => s.Topic).ToList() ?? new List<Topic>();
     }
 }

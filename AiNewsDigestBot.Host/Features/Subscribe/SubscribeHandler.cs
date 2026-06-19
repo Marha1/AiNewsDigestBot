@@ -7,8 +7,8 @@ namespace AiNewsDigestBot.Host.Features.Subscribe;
 public class SubscribeHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly UserService _userService;
     private readonly SubscriptionService _subscriptionService;
+    private readonly UserService _userService;
 
     public SubscribeHandler(ITelegramBotClient bot, UserService userService, SubscriptionService subscriptionService)
     {

@@ -9,10 +9,10 @@ namespace AiNewsDigestBot.Host.Features.Digest;
 
 public class DigestHandler
 {
+    private readonly ArticleService _articleService;
     private readonly ITelegramBotClient _bot;
     private readonly ILogger<DigestHandler> _logger;
     private readonly UserService _userService;
-    private readonly ArticleService _articleService;
 
     public DigestHandler(
         ITelegramBotClient bot,
@@ -29,7 +29,7 @@ public class DigestHandler
     public async Task HandleAsync(long chatId)
     {
         var user = await _userService.GetUserWithSettingsAndSubscriptionsAsync(chatId);
-            
+
         if (user == null)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
@@ -37,7 +37,7 @@ public class DigestHandler
         }
 
         var subscribedTopics = user.Subscriptions.Select(s => s.Topic.ToString()).ToList();
-        
+
         if (!subscribedTopics.Any())
         {
             await _bot.SendMessage(chatId, "📭 У вас нет подписок. Используйте /topics");
@@ -45,7 +45,7 @@ public class DigestHandler
         }
 
         var limit = user.Settings?.ArticlesPerDigest ?? 10;
-        
+
         var articles = await _articleService.GetArticlesByTopicsAsync(subscribedTopics, limit);
 
         if (!articles.Any())
@@ -87,10 +87,7 @@ public class DigestHandler
 
         messages.Add(currentMessage);
 
-        foreach (var msg in messages)
-        {
-            await _bot.SendMessage(chatId, msg, parseMode: ParseMode.Markdown);
-        }
+        foreach (var msg in messages) await _bot.SendMessage(chatId, msg, ParseMode.Markdown);
     }
 
     private string StripHtml(string input)

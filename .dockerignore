@@ -1,25 +1,61 @@
-﻿**/.dockerignore
-**/.env
-**/.git
-**/.gitignore
-**/.project
-**/.settings
-**/.toolstarget
-**/.vs
-**/.vscode
-**/.idea
-**/*.*proj.user
-**/*.dbmdl
-**/*.jfm
-**/azds.yaml
-**/bin
-**/charts
-**/docker-compose*
-**/Dockerfile*
-**/node_modules
-**/npm-debug.log
-**/obj
-**/secrets.dev.yaml
-**/values.dev.yaml
-LICENSE
+﻿# ===== SECRETS =====
+.env
+*.env
+!*.env.example
+**/secrets.json
+
+# ===== VERSION CONTROL =====
+.git/
+.gitignore
+.gitattributes
+
+# ===== IDE =====
+.vs/
+.idea/
+.vscode/
+**/*.user
+**/*.suo
+**/*.sln.docstates
+
+# ===== BUILD OUTPUT =====
+**/bin/
+**/obj/
+**/out/
+**/publish/
+
+# ===== LOGS =====
+**/logs/
+**/*.log
+
+# ===== TEST =====
+**/TestResults/
+**/coverage/
+
+# ===== DOCS =====
 README.md
+LICENSE
+**/*.md
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== TEMP =====
+**/*.tmp
+**/*.temp
+**/temp/
+
+# ===== DOCKER =====
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# ===== NODE (если есть) =====
+**/node_modules/
+**/npm-debug.log
+
+# ===== USER FILES =====
+**/*.user
+**/*.suo
+**/.vs/

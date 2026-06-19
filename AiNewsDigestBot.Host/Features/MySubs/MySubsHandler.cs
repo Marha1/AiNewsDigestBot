@@ -8,8 +8,8 @@ namespace AiNewsDigestBot.Host.Features.MySubs;
 public class MySubsHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly UserService _userService;
     private readonly SubscriptionService _subscriptionService;
+    private readonly UserService _userService;
 
     public MySubsHandler(ITelegramBotClient bot, UserService userService, SubscriptionService subscriptionService)
     {
@@ -43,7 +43,8 @@ public class MySubsHandler
         foreach (var subscription in subscriptions)
         {
             var row = new List<InlineKeyboardButton>();
-            row.Add(InlineKeyboardButton.WithCallbackData($"❌ Отписаться от {subscription.Topic}", $"unsubscribe_{subscription.Topic}"));
+            row.Add(InlineKeyboardButton.WithCallbackData($"❌ Отписаться от {subscription.Topic}",
+                $"unsubscribe_{subscription.Topic}"));
             inlineKeyboard.Add(row);
         }
 
@@ -54,7 +55,7 @@ public class MySubsHandler
         var keyboard = new InlineKeyboardMarkup(inlineKeyboard);
 
         var message = "📋 *Ваши подписки:*\n\n";
-        foreach (var subscription in subscriptions) 
+        foreach (var subscription in subscriptions)
             message += $"✅ {subscription.Topic}\n";
 
         message += "\n👇 Нажмите на кнопку, чтобы отписаться";

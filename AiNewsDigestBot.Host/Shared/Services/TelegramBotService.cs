@@ -63,7 +63,7 @@ public class TelegramBotService : BackgroundService
             var searchState = scope.ServiceProvider.GetRequiredService<SearchStateService>();
             var isWaitingForSearch = await searchState.IsWaitingForSearchAsync(chatId);
 
-            if (isWaitingForSearch)
+            if (isWaitingForSearch&&!messageText.Contains("❌ Отмена"))
             {
                 var searchHandler = scope.ServiceProvider.GetRequiredService<SearchHandler>();
                 await searchHandler.HandleAsync(chatId, messageText);

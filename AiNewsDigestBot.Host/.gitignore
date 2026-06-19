@@ -1,28 +1,56 @@
-# Build output
+# ===== BUILD OUTPUT =====
 bin/
 obj/
 out/
+**/bin/
+**/obj/
 
-# Database
+# ===== DATABASE =====
 *.db
+*.sqlite
+*.sqlite3
 
-
-# User secrets (важно! токены не должны в репозитории)
+# ===== SECRETS (ВАЖНО!) =====
+.env
+*.env
+!*.env.example
+secrets.json
+*.secrets.json
 appsettings.Development.json
-appsettings.json
+appsettings.Production.json
+appsettings.*.json
+!appsettings.template.json
+!appsettings.json.template
 
-# IDE
+# ===== IDE =====
 .vs/
 .idea/
 .vscode/
+*.user
+*.suo
+*.sln.docstates
 
-# Logs
+# ===== LOGS =====
 logs/
 *.log
+**/logs/
+**/*.log
 
-# Docker
-*.dcignore
+# ===== DOCKER =====
+*.dockerignore
+docker-compose.override.yml
 
-# OS
+# ===== OS =====
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# ===== TEST =====
+**/TestResults/
+**/coverage/
+*.coverage
+
+# ===== TEMP =====
+*.tmp
+*.temp
+**/temp/

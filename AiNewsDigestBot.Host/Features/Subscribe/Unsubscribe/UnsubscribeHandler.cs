@@ -7,8 +7,8 @@ namespace AiNewsDigestBot.Host.Features.Subscribe.Unsubscribe;
 public class UnsubscribeHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly UserService _userService;
     private readonly SubscriptionService _subscriptionService;
+    private readonly UserService _userService;
 
     public UnsubscribeHandler(ITelegramBotClient bot, UserService userService, SubscriptionService subscriptionService)
     {
@@ -36,7 +36,7 @@ public class UnsubscribeHandler
 
         // 3. Удаляем подписку
         var removed = await _subscriptionService.RemoveSubscriptionAsync(user.Id, topic);
-        
+
         if (!removed)
         {
             await _bot.SendMessage(chatId, $"❌ Вы не подписаны на тему {topic}");

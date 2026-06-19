@@ -1,5 +1,5 @@
-using AiNewsDigestBot.Host.Shared.Data.Enums;
 using System.Text.RegularExpressions;
+using AiNewsDigestBot.Host.Shared.Data.Enums;
 
 namespace AiNewsDigestBot.Host.Shared.Services.Parser.TopicDetected;
 
@@ -113,7 +113,7 @@ public class TopicDetector
             "хоккей", "волейбол", "бокс", "единоборства", "бег", "легкая атлетика", "плавание",
             "олимпиада", "чемпион", "победитель", "тренер", "игрок", "спортсмен", "болельщик",
             "стадион", "тренировка", "соревнование", "кубок", "лига", "дисквалификация",
-            "крикет", "капитан", "сборная", "тест", "таблица", "турнирная таблица","сборная",
+            "крикет", "капитан", "сборная", "тест", "таблица", "турнирная таблица", "сборная",
             // Английские
             "football", "soccer", "basketball", "tennis", "sport", "match", "team", "game",
             "championship", "tournament", "hockey", "volleyball", "boxing", "athletics", "swimming",
@@ -208,12 +208,12 @@ public class TopicDetector
 
         foreach (var (topic, keywords) in _keywords)
         {
-            var count = keywords.Count(keyword => 
+            var count = keywords.Count(keyword =>
                 words.Contains(keyword.ToLower()) ||
                 text.Contains(keyword.ToLower() + " ") ||
                 text.Contains(" " + keyword.ToLower())
             );
-            
+
             if (count > 0)
                 matches[topic] = count;
         }

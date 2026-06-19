@@ -31,7 +31,7 @@ public class HangfireJobScheduler
             _recurringJobManager.AddOrUpdate(
                 "digest-scheduler",
                 () => CheckDigestsAsync(),
-                "* * * * *", 
+                "* * * * *",
                 TimeZoneInfo.Local);
 
             _logger.LogInformation("Hangfire scheduler started: news parsing every 30 minutes");
@@ -41,6 +41,7 @@ public class HangfireJobScheduler
             _logger.LogError(ex, "Failed to start Hangfire scheduler");
         }
     }
+
     public void EnqueueInitialParse()
     {
         BackgroundJob.Enqueue<MainNewsParser>(p => p.ParseAndSaveAsync());
@@ -54,7 +55,7 @@ public class HangfireJobScheduler
         await scheduler.CheckAndSendDigestsAsync();
     }
 
-    
+
     public async Task ParseNewsAsync()
     {
         using var scope = _serviceProvider.CreateScope();

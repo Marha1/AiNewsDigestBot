@@ -30,6 +30,7 @@ public class StartHandler
         {
             await _userService.UpdateLastActiveAsync(chatId);
         }
+
         var keyboard = GetMainKeyboard();
         string message;
 

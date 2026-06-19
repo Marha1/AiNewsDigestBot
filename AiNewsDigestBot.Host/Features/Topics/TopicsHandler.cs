@@ -9,8 +9,8 @@ namespace AiNewsDigestBot.Host.Features.Topics;
 public class TopicsHandler
 {
     private readonly ITelegramBotClient _bot;
-    private readonly UserService _userService;
     private readonly SubscriptionService _subscriptionService;
+    private readonly UserService _userService;
 
     public TopicsHandler(ITelegramBotClient bot, UserService userService, SubscriptionService subscriptionService)
     {

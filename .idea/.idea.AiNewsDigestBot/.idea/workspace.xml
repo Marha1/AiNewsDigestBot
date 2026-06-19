@@ -10,225 +10,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="100e8a75-8953-4d1d-85b0-7528859c4489" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Controllers/ArticlesController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Latest/LatestHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Search/CancelHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Search/SearchHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Settings/SettingsHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/20260610190638_Change_Articl.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/20260611144459_Add_Source.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/20260611171643_Change_Source.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/20260612101938_Add_Source_Config.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/DigestSchedulerService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/HangfireJobScheduler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/SearchStateService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/SettingsStateService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/SubscriptionService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/UserService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/AiNewsDigestBot.Tests.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/AiNewsDigestBot.Host.deps.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/AiNewsDigestBot.Host.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/AiNewsDigestBot.Host.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/AiNewsDigestBot.Host.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/AiNewsDigestBot.Host.runtimeconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/AiNewsDigestBot.Tests.deps.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/AiNewsDigestBot.Tests.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/AiNewsDigestBot.Tests.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/AiNewsDigestBot.Tests.runtimeconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Castle.Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/CoverletSourceRootsMapping_AiNewsDigestBot.Tests" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Dapper.AOT.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Dapper.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Hangfire.AspNetCore.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Hangfire.Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Hangfire.NetCore.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Hangfire.PostgreSql.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Hangfire.SqlServer.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/HtmlAgilityPack.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Caching.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Configuration.FileExtensions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Json.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Configuration.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.FileProviders.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.FileProviders.Physical.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.FileSystemGlobbing.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Options.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.OpenApi.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.TestPlatform.CommunicationUtilities.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.TestPlatform.CoreUtilities.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.TestPlatform.CrossPlatEngine.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.TestPlatform.PlatformAbstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.TestPlatform.Utilities.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.Common.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Moq.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/NUnit3.TestAdapter.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/NUnit3.TestAdapter.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/NewsAPI.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Newtonsoft.Json.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Npgsql.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/NuGet.Frameworks.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/System.Collections.Immutable.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/System.IO.Pipelines.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/System.Text.Encodings.Web.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/System.Text.Json.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/Telegram.Bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/appsettings.Development.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/appsettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ca/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/cs/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/cs/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/cs/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/cs/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/cs/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/de/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/de/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/de/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/de/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/de/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/de/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/es/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/es/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/es/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/es/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/es/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/es/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/fa/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/fr/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/fr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/fr/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/fr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/fr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/fr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/it/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/it/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/it/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/it/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/it/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ja/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ja/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ja/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ja/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ja/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ko/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ko/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ko/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ko/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ko/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/nb/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/nl/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/nunit.engine.api.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/nunit.engine.core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/nunit.engine.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/nunit.framework.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pl/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pl/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pl/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pl/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pt-BR/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pt-BR/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pt-BR/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pt-BR/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pt-BR/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pt-BR/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pt-PT/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/pt/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ru/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ru/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ru/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ru/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/ru/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/sv/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/testcentric.engine.metadata.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/testhost.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/testhost.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/tr-TR/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/tr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/tr/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/tr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/tr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/tr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/xunit.abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/xunit.assert.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/xunit.core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/xunit.execution.dotnet.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hans/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hans/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hans/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh-TW/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/bin/Debug/net8.0/zh/Hangfire.Core.resources.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/AiNewsDigestBot.Tests.csproj.nuget.dgspec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/AiNewsDigestBot.Tests.csproj.nuget.g.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/AiNewsDigestBot.Tests.csproj.nuget.g.targets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.GlobalUsings.g.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.csproj.AssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.csproj.CopyComplete" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.genruntimeconfig.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/AiNewsDigestBot.Tests.sourcelink.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/ref/AiNewsDigestBot.Tests.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/refint/AiNewsDigestBot.Tests.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/project.assets.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/project.nuget.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/project.packagespec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/rider.project.restore.info" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Configurations/TelegramConfig.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiChatResponse.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiChoice.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiError.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiUsage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AiNewsDigestBot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AiNewsDigestBot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Controllers/HealthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Controllers/HealthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/AiNewsDigestBot.Host.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/AiNewsDigestBot.Host.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Dockerfile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Digest/DigestHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Digest/DigestHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/MySubs/MySubsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/MySubs/MySubsHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Settings/SettingsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Settings/SettingsHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Start/StartHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Start/StartHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/SubscribeHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/SubscribeHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/Unsubscribe/UnsubscribeHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/Unsubscribe/UnsubscribeHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Topics/TopicsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Topics/TopicsHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/Subscription.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/Subscription.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Enums/Topic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Enums/Topic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Migrations/20260609125117_Initial.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/20260609125117_Initial.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Migrations/20260609125117_Initial.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/20260609125117_Initial.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ArticleService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ArticleService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ChatService/Implementations/ChatService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ChatService/Implementations/ChatService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/HangfireJobScheduler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/HangfireJobScheduler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/MainParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/MainParser.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/NewsParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/NewsParser.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/TopicDetected/TopicDetected.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/TopicDetected/TopicDetected.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/SourcesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/SourcesService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/SubscriptionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/SubscriptionService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/TelegramBotService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/TelegramBotService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/UserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Tests/NewsAPITests.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -387,6 +198,7 @@
       <updated>1781005025936</updated>
       <workItem from="1781005027578" duration="36661000" />
       <workItem from="1781184877011" duration="41404000" />
+      <workItem from="1781870800274" duration="8209000" />
     </task>
     <task id="LOCAL-00001" summary="feat: initial &#10;&#10;- Add ASP.NET Core Web API project&#10;- Configure PostgreSQL with EF Core&#10;- Add entities: User, Subscription, UserSettings, Article&#10;- Add entity configurations and AppDbContext&#10;- Add HealthController for /api/health&#10;- Add Swagger for API testing&#10;- Add initial migration&quot;">
       <option name="closed" value="true" />
@@ -450,32 +262,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs</url>
-          <line>80</line>
-          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Tests\MainParserTest.cs" initialLine="57" containingFunctionPresentation="Method 'ParseAndSaveAsync_WithRssSources_SavesArticlesToDatabase'">
-            <startOffsets>
-              <option value="2740" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2795" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs</url>
-          <line>77</line>
-          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Tests\MainParserTest.cs" initialLine="58" containingFunctionPresentation="Method 'ParseAndSaveAsync_WithRssSources_SavesArticlesToDatabase'">
-            <startOffsets>
-              <option value="2679" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2712" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/TelegramBotService.cs</url>
           <line>63</line>
           <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\TelegramBotService.cs" initialLine="61" containingFunctionPresentation="Method 'HandleUpdateAsync'">
@@ -496,7 +282,7 @@
               <option value="2254" />
             </startOffsets>
             <endOffsets>
-              <option value="2277" />
+              <option value="2312" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="30" />
@@ -506,10 +292,10 @@
           <line>68</line>
           <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\TelegramBotService.cs" initialLine="68" containingFunctionPresentation="Method 'HandleUpdateAsync'">
             <startOffsets>
-              <option value="2403" />
+              <option value="2438" />
             </startOffsets>
             <endOffsets>
-              <option value="2456" />
+              <option value="2491" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="31" />
@@ -519,10 +305,10 @@
           <line>121</line>
           <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\TelegramBotService.cs" initialLine="105" containingFunctionPresentation="Method 'HandleUpdateAsync'">
             <startOffsets>
-              <option value="4478" />
+              <option value="4513" />
             </startOffsets>
             <endOffsets>
-              <option value="4496" />
+              <option value="4531" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="33" />
@@ -532,10 +318,10 @@
           <line>240</line>
           <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\TelegramBotService.cs" initialLine="237" containingFunctionPresentation="Method 'HandleUpdateAsync'">
             <startOffsets>
-              <option value="9054" />
+              <option value="9089" />
             </startOffsets>
             <endOffsets>
-              <option value="9136" />
+              <option value="9171" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="34" />
@@ -545,10 +331,10 @@
           <line>72</line>
           <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\TelegramBotService.cs" initialLine="71" containingFunctionPresentation="Method 'HandleUpdateAsync'">
             <startOffsets>
-              <option value="2508" />
+              <option value="2543" />
             </startOffsets>
             <endOffsets>
-              <option value="2593" />
+              <option value="2628" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="35" />
@@ -558,10 +344,10 @@
           <line>74</line>
           <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\TelegramBotService.cs" initialLine="73" containingFunctionPresentation="Method 'HandleUpdateAsync'">
             <startOffsets>
-              <option value="2680" />
+              <option value="2715" />
             </startOffsets>
             <endOffsets>
-              <option value="2716" />
+              <option value="2751" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="36" />
@@ -571,10 +357,10 @@
           <line>315</line>
           <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\TelegramBotService.cs" initialLine="312" containingFunctionPresentation="Method 'HandleCallbackQueryAsync'">
             <startOffsets>
-              <option value="11931" />
+              <option value="11966" />
             </startOffsets>
             <endOffsets>
-              <option value="12008" />
+              <option value="12043" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="37" />
@@ -584,39 +370,26 @@
           <line>317</line>
           <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\TelegramBotService.cs" initialLine="314" containingFunctionPresentation="Method 'HandleCallbackQueryAsync'">
             <startOffsets>
-              <option value="12039" />
+              <option value="12074" />
             </startOffsets>
             <endOffsets>
-              <option value="12121" />
+              <option value="12156" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/DigestSchedulerService.cs</url>
-          <line>25</line>
-          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\DigestSchedulerService.cs" initialLine="25" containingFunctionPresentation="Method 'CheckAndSendDigestsAsync'">
+          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/TelegramBotService.cs</url>
+          <line>62</line>
+          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\TelegramBotService.cs" initialLine="62" containingFunctionPresentation="Method 'HandleUpdateAsync'">
             <startOffsets>
-              <option value="768" />
+              <option value="2071" />
             </startOffsets>
             <endOffsets>
-              <option value="791" />
+              <option value="2152" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/DigestSchedulerService.cs</url>
-          <line>26</line>
-          <properties documentPath="C:\Users\Hi-Tech\RiderProjects\AiNewsDigestBot\AiNewsDigestBot.Host\Shared\Services\DigestSchedulerService.cs" initialLine="26" containingFunctionPresentation="Method 'CheckAndSendDigestsAsync'">
-            <startOffsets>
-              <option value="800" />
-            </startOffsets>
-            <endOffsets>
-              <option value="831" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="40" />
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
