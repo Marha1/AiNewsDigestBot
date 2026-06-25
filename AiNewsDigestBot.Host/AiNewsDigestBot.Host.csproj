@@ -22,12 +22,12 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="11.0.0-preview.4.26230.115"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
         <PackageReference Include="NewsAPI" Version="0.7.0"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
-        <PackageReference Include="System.ServiceModel.Syndication" Version="11.0.0-preview.5.26302.115"/>
-        <PackageReference Include="Telegram.Bot" Version="22.10.0.2-dev.3"/>
+        <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
+        <PackageReference Include="Telegram.Bot" Version="22.10.1" />
     </ItemGroup>
 
     <ItemGroup>

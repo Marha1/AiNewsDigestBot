@@ -59,27 +59,28 @@ public class DigestHandler
 
     private async Task SendDigestInternalAsync(long chatId, List<Article> articles)
     {
-        var header = $"📰 *Ваш дайджест* ({articles.Count} статей)\n\n";
+        var header = $"📰 Ваш дайджест ({articles.Count} статей)\n\n";
         var messages = new List<string>();
         var currentMessage = header;
 
         foreach (var article in articles)
         {
-            var title = StripHtml(article.Title);
+            var title = StripHtml(article.Title) ?? "Без заголовка";
             if (title.Length > 200) title = title[..200] + "...";
 
             var summary = StripHtml(article.Summary ?? article.Description ?? "Нет описания");
             if (summary.Length > 800) summary = summary[..800] + "...";
 
             var category = StripHtml(article.Category ?? "Без категории");
-            var url = article.Url;
+            var url = article.Url ?? "";
 
-            var articleText = $"*{title}*\n📁 {category}\n{summary}\n[Читать далее]({url})\n\n";
+            // Обычный текст, без Markdown
+            var articleText = $"{title}\nКатегория: {category}\n{summary}\nСсылка: {url}\n\n";
 
             if ((currentMessage + articleText).Length > 4000)
             {
                 messages.Add(currentMessage);
-                currentMessage = "📰 *Дайджест (продолжение)*\n\n";
+                currentMessage = "📰 Дайджест (продолжение)\n\n";
             }
 
             currentMessage += articleText;
@@ -87,7 +88,9 @@ public class DigestHandler
 
         messages.Add(currentMessage);
 
-        foreach (var msg in messages) await _bot.SendMessage(chatId, msg, ParseMode.Markdown);
+        // Отправляем без ParseMode (обычный текст)
+        foreach (var msg in messages)
+            await _bot.SendMessage(chatId, msg, parseMode: ParseMode.None);
     }
 
     private string StripHtml(string input)

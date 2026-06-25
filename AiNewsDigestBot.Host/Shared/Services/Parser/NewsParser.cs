@@ -126,7 +126,6 @@ public class NewsParser
             foreach (var item in feed.Items)
             {
                 var title = item.Title?.Text ?? "";
-
                 var link = item.Links.FirstOrDefault()?.Uri?.ToString() ?? "";
 
                 var description = item.Summary?.Text ?? "";
@@ -135,15 +134,34 @@ public class NewsParser
                     var contentItem = item.Content as TextSyndicationContent;
                     description = contentItem?.Text ?? "";
                 }
-                var pubDate = item.PublishDate.ToString("yyyy-MM-ddTHH:mm:ssZ");
+
                 var cleanDescription = StripHtml(description);
+
+                // ==================================================
+                // ИСПРАВЛЕНИЕ: проверяем дату и передаём строку
+                // ==================================================
+                DateTime publishDate;
+                if (item.PublishDate == DateTimeOffset.MinValue)
+                {
+                    // Нет даты — ставим текущее время
+                    publishDate = DateTime.UtcNow;
+                    _logger.LogDebug("Article '{Title}' has no publish date, using current time", title);
+                }
+                else
+                {
+                    publishDate = item.PublishDate.UtcDateTime;
+                }
+
+                var pubDateString = publishDate.ToString("yyyy-MM-ddTHH:mm:ssZ");
+
                 var article = CreateArticle(
                     title,
                     link,
                     cleanDescription,
-                    pubDate,
+                    pubDateString,
                     null
                 );
+
                 if (article != null)
                     articles.Add(article);
             }
@@ -173,11 +191,8 @@ public class NewsParser
 
         try
         {
-            // Убираем HTML-теги
             var result = Regex.Replace(html, "<.*?>", string.Empty);
-            // Убираем лишние пробелы
             result = Regex.Replace(result, @"\s+", " ");
-            // Декодируем HTML-сущности
             result = WebUtility.HtmlDecode(result);
             return result.Trim();
         }
@@ -204,6 +219,8 @@ public class NewsParser
             return null;
         }
 
+        var parsedDate = ParseDate(pubDate);
+
         return new Article
         {
             Id = Guid.NewGuid(),
@@ -211,11 +228,27 @@ public class NewsParser
             Url = normalizedUrl,
             Description = description ?? "",
             Category = defaultCategory,
-            PublishedAt = DateTime.TryParse(pubDate, out var date)
-                ? DateTime.SpecifyKind(date, DateTimeKind.Utc)
-                : DateTime.UtcNow,
+            PublishedAt = parsedDate,
             ParsedAt = DateTime.UtcNow
         };
+    }
+
+    /// <summary>
+    /// Парсит дату. Если даты нет или это 01.01.0001 — ставит текущее время.
+    /// </summary>
+    private DateTime ParseDate(string dateString)
+    {
+        // Если строка пустая — сразу текущее время
+        if (string.IsNullOrWhiteSpace(dateString))
+            return DateTime.UtcNow;
+
+        if (DateTime.TryParse(dateString, out var date))
+        {
+            if (date.Year > 1)
+                return DateTime.SpecifyKind(date, DateTimeKind.Utc);
+        }
+
+        return DateTime.UtcNow;
     }
 
     private string NormalizeUrl(string url)
@@ -234,7 +267,7 @@ public class NewsParser
     private async Task<SourceType> DetectSource(string url)
     {
         if (url.Contains("newsapi.org") || url.Contains("newsapi"))
-            return  SourceType.NewsApi;
+            return SourceType.NewsApi;
         if (url.Contains(".rss") || url.Contains("/rss") || url.Contains("/feed"))
             return SourceType.Rss;
         return SourceType.Html;

@@ -10,16 +10,12 @@ public class MainNewsParser
     private const int DelayBetweenAiCallsMs = 500;
     private readonly ArticleService _articleService;
     private readonly IChatService _chatService;
-    private readonly IConfiguration _config;
-    private readonly IHttpClientFactory _httpFactory;
     private readonly ILogger<MainNewsParser> _logger;
     private readonly NewsParser _newsParser;
     private readonly SourceService _sourceService;
     private readonly TopicDetector _topicDetector;
 
     public MainNewsParser(
-        IHttpClientFactory httpFactory,
-        IConfiguration config,
         ILogger<MainNewsParser> logger,
         TopicDetector topicDetector,
         IChatService chatService,
@@ -27,8 +23,6 @@ public class MainNewsParser
         SourceService sourceService, NewsParser newsParser
     )
     {
-        _httpFactory = httpFactory;
-        _config = config;
         _logger = logger;
         _topicDetector = topicDetector;
         _chatService = chatService;
@@ -60,12 +54,12 @@ public class MainNewsParser
                 var skippedCount = articles.Count - newArticles.Count;
                 if (skippedCount > 0)
                     _logger.LogInformation("Skipped {SkippedCount} duplicate articles from {SourceName}",
-                        skippedCount, source);
+                        skippedCount, source.Url);
 
                 if (newArticles.Count == 0)
                 {
                     _logger.LogInformation("All {TotalCount} articles from {SourceName} are duplicates, skipping",
-                        articles.Count, source);
+                        articles.Count, source.Url);
                     continue;
                 }
 
@@ -107,7 +101,7 @@ public class MainNewsParser
                 await _articleService.SaveArticlesAsync(newArticles);
                 _logger.LogInformation(
                     "Saved {Count} articles from {SourceName} (summarized: {Summarized}, failed: {Failed})",
-                    newArticles.Count, source, summarizedCount, failedCount);
+                    newArticles.Count, source.Url, summarizedCount, failedCount);
 
                 // 5. Задержка только для NewsAPI
                 if (source.Url.Contains("newsapi.org"))
@@ -115,7 +109,7 @@ public class MainNewsParser
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error processing source {SourceName}", source);
+                _logger.LogError(ex, "Error processing source {SourceName}", source.Url);
             }
     }
 }

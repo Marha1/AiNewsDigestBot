@@ -110,6 +110,7 @@ public class UserService
             Id = Guid.NewGuid(),
             TelegramId = telegramId,
             FirstName = firstName,
+            UserName = username,
             LastName = lastName,
             CreatedAt = DateTime.UtcNow,
             IsActive = true

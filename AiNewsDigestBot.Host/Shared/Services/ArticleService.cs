@@ -125,21 +125,7 @@ public class ArticleService
 
         return (articles, totalCount);
     }
-
-    /// <summary>
-    ///     Получить статьи для дайджеста пользователя (по подпискам)
-    /// </summary>
-    public async Task<List<Article>> GetDigestByTopicsAsync(List<string> topics, int limit = 10)
-    {
-        if (topics == null || topics.Count == 0)
-            return new List<Article>();
-
-        return await _db.Articles
-            .Where(a => topics.Contains(a.Category))
-            .OrderByDescending(a => a.PublishedAt)
-            .Take(limit)
-            .ToListAsync();
-    }
+    
 
     /// <summary>
     ///     Последние статьи без фильтра
@@ -192,20 +178,5 @@ public class ArticleService
             .Take(limit)
             .ToListAsync();
     }
-
-    /// <summary>
-    ///     Проверка существования статьи по URL
-    /// </summary>
-    public async Task<bool> ArticleExistsAsync(string url)
-    {
-        return await _db.Articles.AnyAsync(a => a.Url == url);
-    }
-
-    /// <summary>
-    ///     Получить статью по ID
-    /// </summary>
-    public async Task<Article?> GetArticleByIdAsync(Guid id)
-    {
-        return await _db.Articles.FindAsync(id);
-    }
+    
 }

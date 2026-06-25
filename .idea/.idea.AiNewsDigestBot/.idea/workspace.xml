@@ -10,36 +10,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="100e8a75-8953-4d1d-85b0-7528859c4489" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Configurations/TelegramConfig.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiChatResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiChoice.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiError.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiMessage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Data/Entity/ChatEntity/OpenAiUsage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/ArticleServiceTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/ChatServiceTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/NewsParserTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/SourceServiceTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/TopicDetectorTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AiNewsDigestBot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AiNewsDigestBot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/AiNewsDigestBot.Host.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/AiNewsDigestBot.Host.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Dockerfile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Digest/DigestHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Digest/DigestHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/MySubs/MySubsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/MySubs/MySubsHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Settings/SettingsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Settings/SettingsHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Start/StartHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Start/StartHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/SubscribeHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/SubscribeHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/Unsubscribe/UnsubscribeHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Subscribe/Unsubscribe/UnsubscribeHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Topics/TopicsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Features/Topics/TopicsHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ArticleService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ArticleService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ChatService/Implementations/ChatService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/ChatService/Implementations/ChatService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/HangfireJobScheduler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/HangfireJobScheduler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/MainParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/MainParser.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/NewsParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/NewsParser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/TopicDetected/TopicDetected.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/Parser/TopicDetected/TopicDetected.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/SubscriptionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/SubscriptionService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/TelegramBotService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/TelegramBotService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Host/Shared/Services/UserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Tests/MainParserTest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Tests/NewsAPITests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.Tests/AiNewsDigestBot.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.Tests/AiNewsDigestBot.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AiNewsDigestBot.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/AiNewsDigestBot.sln.DotSettings.user" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,9 +45,9 @@
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Reflection/MethodBaseInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/String.Manipulation.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Threading/ExecutionContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Threading/Tasks/Task.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Threading/Tasks/TaskContinuation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Threading/ExecutionContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Threading/Tasks/Task.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/5535e31a712343a63f5d7d796cd874e563e5ac14/src/libraries/System.Private.CoreLib/src/System/Threading/Tasks/TaskContinuation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07846d8aac7e403887d0ce107d2cf640ff10/86/212d0c56/ServiceProviderServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b13cb16f7e5749269b6922dc6752bd1c291448/86/a298519a/ModelCustomizer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b13cb16f7e5749269b6922dc6752bd1c291448/a5/b7a85e42/ModelBuilder.cs" root0="SKIP_HIGHLIGHTING" />
@@ -72,7 +58,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c963de5a314f4de7ffa6aa646954e9a2eba944da2f2fa5bfde35a0a7dadb32/BackgroundProcessDispatcherBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cd4a90ca1881d1b5e523adab51a14d890a6c13a285e183efb37c4b8c1de0b1/TaskExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e596d5107d55c81e77573b73b27459f44039ccebc2e8e0403c497e6c659caa85/BackgroundJobPerformer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Hi-Tech/RiderProjects/AiNewsDigestBot/AiNewsDigestBot.Host/Shared/Migrations/AppDbContextModelSnapshot.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AiNewsDigestBot.Tests/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -90,29 +75,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.AiNewsDigestBot.Host: http.executor": "Run",
-    "3937f3d8-85f0-43a5-8423-8c4036be8372.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "develop",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.AiNewsDigestBot.Host: http.executor&quot;: &quot;Run&quot;,
+    &quot;3937f3d8-85f0-43a5-8423-8c4036be8372.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\Hi-Tech\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\Hi-Tech\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\Hi-Tech\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\Hi-Tech\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\Hi-Tech\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\Hi-Tech\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.AiNewsDigestBot.Host: http">
     <configuration name="AiNewsDigestBot.Host: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/AiNewsDigestBot.Host/AiNewsDigestBot.Host.csproj" />
@@ -199,6 +184,7 @@
       <workItem from="1781005027578" duration="36661000" />
       <workItem from="1781184877011" duration="41404000" />
       <workItem from="1781870800274" duration="8209000" />
+      <workItem from="1782401017167" duration="5068000" />
     </task>
     <task id="LOCAL-00001" summary="feat: initial &#10;&#10;- Add ASP.NET Core Web API project&#10;- Configure PostgreSQL with EF Core&#10;- Add entities: User, Subscription, UserSettings, Article&#10;- Add entity configurations and AppDbContext&#10;- Add HealthController for /api/health&#10;- Add Swagger for API testing&#10;- Add initial migration&quot;">
       <option name="closed" value="true" />
