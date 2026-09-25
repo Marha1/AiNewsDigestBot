@@ -8,5 +8,5 @@ public class UserSettings
     public int DigestHour { get; set; } = 9;
     public int DigestMinute { get; set; } = 0;
     public int ArticlesPerDigest { get; set; } = 10;
-    public bool IsEnabled { get; set; } = true;
+    public bool IsEnabled { get; set; } = false;
 }

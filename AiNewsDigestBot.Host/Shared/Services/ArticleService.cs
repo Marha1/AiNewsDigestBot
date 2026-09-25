@@ -155,10 +155,12 @@ public class ArticleService
     /// </summary>
     public async Task<List<Article>> SearchArticlesPagedAsync(string query, int page, int pageSize)
     {
+        var q = query.ToLower();
+
         return await _db.Articles
             .Where(a =>
-                a.Title.Contains(query) ||
-                (a.Description != null && a.Description.Contains(query)))
+                a.Title.ToLower().Contains(q) ||
+                (a.Description != null && a.Description.ToLower().Contains(q)))
             .OrderByDescending(a => a.PublishedAt)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
@@ -170,10 +172,12 @@ public class ArticleService
     /// </summary>
     public async Task<List<Article>> SearchArticlesAsync(string query, int limit = 10)
     {
+        var q = query.ToLower();
+
         return await _db.Articles
-            .Where(a => a.Title.Contains(query) ||
-                        (a.Description != null && a.Description.Contains(query)) ||
-                        (a.Summary != null && a.Summary.Contains(query)))
+            .Where(a => a.Title.ToLower().Contains(q) ||
+                        (a.Description != null && a.Description.ToLower().Contains(q)) ||
+                        (a.Summary != null && a.Summary.ToLower().Contains(q)))
             .OrderByDescending(a => a.PublishedAt)
             .Take(limit)
             .ToListAsync();

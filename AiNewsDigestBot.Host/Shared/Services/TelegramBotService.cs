@@ -72,14 +72,15 @@ public class TelegramBotService : BackgroundService
 
             var settingsState = scope.ServiceProvider.GetRequiredService<SettingsStateService>();
             var currentState = await settingsState.GetStateAsync(chatId);
-            if (currentState == "settings_time")
+            if (currentState == "settings_time"&&!messageText.Contains("❌ Отмена")) 
             {
+                
                 var settingsHandler = scope.ServiceProvider.GetRequiredService<SettingsHandler>();
                 await settingsHandler.HandleTimeInputAsync(chatId, messageText);
                 return;
             }
 
-            if (currentState == "settings_count")
+            if (currentState == "settings_count"&&!messageText.Contains("❌ Отмена"))
             {
                 var settingsHandler = scope.ServiceProvider.GetRequiredService<SettingsHandler>();
                 await settingsHandler.HandleCountInputAsync(chatId, messageText);

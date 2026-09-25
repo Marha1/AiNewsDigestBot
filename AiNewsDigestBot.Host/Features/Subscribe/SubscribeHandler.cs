@@ -40,9 +40,9 @@ public class SubscribeHandler
         var isSubscribed = await _subscriptionService.IsUserSubscribedAsync(user.Id, topic);
         if (isSubscribed)
         {
-            // Если подписан - отписываем
-            await _subscriptionService.RemoveSubscriptionAsync(user.Id, topic);
-            await _bot.SendMessage(chatId, $"❌ Вы отписались от темы {topic}");
+            // Если подписан - только сообщаем, отписка живёт в "Мои подписки"
+            await _bot.SendMessage(chatId,
+                $"ℹ️ Вы уже подписаны на тему {topic}.\n\nОтписаться можно через кнопку 📰 Мои подписки");
             return;
         }
 
@@ -54,6 +54,6 @@ public class SubscribeHandler
 
         // 6. Отвечаем
         await _bot.SendMessage(chatId,
-            $"✅ Вы подписались на тему {topic}\n\nИспользуйте /topics чтобы увидеть все подписки");
+            $"✅ Вы подписались на тему {topic}\n\nИспользуйте /mysubs чтобы увидеть все подписки");
     }
 }

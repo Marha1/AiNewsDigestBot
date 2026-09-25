@@ -119,14 +119,11 @@ public class UserService
         _db.Users.Add(user);
 
         // Настройки по умолчанию
+        // Остальные значения (время, количество, IsEnabled) берутся из инициализаторов UserSettings
         _db.UserSettings.Add(new UserSettings
         {
             Id = Guid.NewGuid(),
-            UserId = user.Id,
-            DigestHour = 9,
-            DigestMinute = 0,
-            ArticlesPerDigest = 10,
-            IsEnabled = true
+            UserId = user.Id
         });
 
         await _db.SaveChangesAsync();

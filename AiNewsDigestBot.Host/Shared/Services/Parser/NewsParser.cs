@@ -25,7 +25,7 @@ public class NewsParser
     {
         try
         {
-            var sourceType = await DetectSource(url);
+            var sourceType = DetectSource(url);
             var articles = sourceType switch
             {
                 SourceType.Rss => await ParseRssAsync(url),
@@ -264,7 +264,7 @@ public class NewsParser
         return url.ToLowerInvariant();
     }
 
-    private async Task<SourceType> DetectSource(string url)
+    private SourceType DetectSource(string url)
     {
         if (url.Contains("newsapi.org") || url.Contains("newsapi"))
             return SourceType.NewsApi;

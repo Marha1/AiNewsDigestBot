@@ -36,11 +36,7 @@ public class SettingsHandler
             user.Settings = new UserSettings
             {
                 Id = Guid.NewGuid(),
-                UserId = user.Id,
-                DigestHour = 9,
-                DigestMinute = 0,
-                ArticlesPerDigest = 10,
-                IsEnabled = true
+                UserId = user.Id
             };
             await _userService.UpdateUserAsync(user);
         }

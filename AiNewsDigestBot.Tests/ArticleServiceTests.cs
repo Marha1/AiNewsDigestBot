@@ -170,6 +170,23 @@ public class ArticleServiceTests
     }
 
     /// <summary>
+    /// Проверка: поиск не зависит от регистра (запрос "apple" находит "Apple")
+    /// </summary>
+    [Fact]
+    public async Task SearchArticlesAsync_ShouldBeCaseInsensitive()
+    {
+        using var db = CreateDbContext();
+        var service = CreateService(db);
+
+        db.Articles.Add(CreateTestArticle("https://example.com/1", "Apple announces new iPhone"));
+        await db.SaveChangesAsync();
+
+        var result = await service.SearchArticlesAsync("apple");
+
+        Assert.Single(result);
+    }
+
+    /// <summary>
     /// Проверка: GetLatestArticlesAsync возвращает статьи, отсортированные по дате (сначала новые)
     /// </summary>
     [Fact]
