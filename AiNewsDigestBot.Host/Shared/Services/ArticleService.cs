@@ -22,21 +22,19 @@ public class ArticleService
     {
         if (articles == null || articles.Count == 0)
             return new List<Article>();
-
-        // 1. Убираем дубли внутри списка
         var uniqueArticles = articles
-            .GroupBy(a => a.Url)
+            .GroupBy(a => a.Url,StringComparer.OrdinalIgnoreCase)
             .Select(g => g.First())
             .ToList();
 
-        // 2. Проверяем, какие URL уже есть в БД
-        var urls = uniqueArticles.Select(a => a.Url).ToList();
+        var urls = uniqueArticles
+            .Select(a => a.Url.ToLower())
+            .ToList();
+        
         var existingUrls = await _db.Articles
-            .Where(a => urls.Contains(a.Url))
+            .Where(a => urls.Contains(a.Url.ToLower()))
             .Select(a => a.Url)
-            .ToHashSetAsync();
-
-        // 3. Возвращаем только новые статьи
+            .ToHashSetAsync(StringComparer.OrdinalIgnoreCase);
         return uniqueArticles.Where(a => !existingUrls.Contains(a.Url)).ToList();
     }
 
@@ -48,28 +46,8 @@ public class ArticleService
         if (articles == null || articles.Count == 0)
             return 0;
 
-        // 1. Убираем дубли по URL внутри списка
-        var uniqueArticles = articles
-            .GroupBy(a => a.Url)
-            .Select(g => g.First())
-            .ToList();
-
-        if (uniqueArticles.Count < articles.Count)
-            _logger.LogWarning("Removed {Duplicates} duplicate URLs from the batch",
-                articles.Count - uniqueArticles.Count);
-
-        // 2. Проверяем, какие URL уже есть в БД
-        var urls = uniqueArticles.Select(a => a.Url).ToList();
-        var existingUrls = await _db.Articles
-            .Where(a => urls.Contains(a.Url))
-            .Select(a => a.Url)
-            .ToHashSetAsync();
-
-        // 3. Фильтруем только новые статьи
-        var newArticles = uniqueArticles
-            .Where(a => !existingUrls.Contains(a.Url))
-            .ToList();
-
+        var newArticles = await FilterNewArticlesAsync(articles);
+      
         if (newArticles.Count == 0)
         {
             _logger.LogInformation("All {Count} articles already exist in database", articles.Count);
