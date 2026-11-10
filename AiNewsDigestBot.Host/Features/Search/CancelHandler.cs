@@ -13,7 +13,8 @@ public class CancelHandler
     private readonly SearchStateService _searchState;
     private readonly SettingsStateService _settingsStateService;
 
-    public CancelHandler(ITelegramBotClient bot, SearchStateService searchState, SettingsStateService settingsStateService)
+    public CancelHandler(ITelegramBotClient bot, SearchStateService searchState,
+        SettingsStateService settingsStateService)
     {
         _bot = bot;
         _searchState = searchState;

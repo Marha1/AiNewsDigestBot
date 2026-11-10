@@ -9,7 +9,7 @@ using Moq.Protected;
 namespace AiNewsDigestBot.Tests;
 
 /// <summary>
-/// Тесты для ChatService: суммаризация текста через OpenAI API
+///     Тесты для ChatService: суммаризация текста через OpenAI API
 /// </summary>
 public class ChatServiceTests
 {

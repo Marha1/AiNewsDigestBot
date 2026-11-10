@@ -8,7 +8,7 @@ using Moq;
 namespace AiNewsDigestBot.Tests;
 
 /// <summary>
-/// Тесты для ArticleService: дедупликация, сохранение, поиск, фильтрация
+///     Тесты для ArticleService: дедупликация, сохранение, поиск, фильтрация
 /// </summary>
 public class ArticleServiceTests
 {
@@ -41,7 +41,7 @@ public class ArticleServiceTests
     }
 
     /// <summary>
-    /// Проверка: FilterNewArticlesAsync возвращает только новые статьи (которых нет в БД)
+    ///     Проверка: FilterNewArticlesAsync возвращает только новые статьи (которых нет в БД)
     /// </summary>
     [Fact]
     public async Task FilterNewArticlesAsync_ShouldReturnOnlyNewArticles()
@@ -58,7 +58,7 @@ public class ArticleServiceTests
         {
             CreateTestArticle("https://example.com/1"), // дубликат
             CreateTestArticle("https://example.com/2"), // новая
-            CreateTestArticle("https://example.com/3")  // новая
+            CreateTestArticle("https://example.com/3") // новая
         };
 
         var result = await service.FilterNewArticlesAsync(articles);
@@ -70,7 +70,7 @@ public class ArticleServiceTests
     }
 
     /// <summary>
-    /// Проверка: FilterNewArticlesAsync удаляет дубликаты внутри одного списка
+    ///     Проверка: FilterNewArticlesAsync удаляет дубликаты внутри одного списка
     /// </summary>
     [Fact]
     public async Task FilterNewArticlesAsync_ShouldRemoveDuplicatesWithinList()
@@ -92,7 +92,7 @@ public class ArticleServiceTests
     }
 
     /// <summary>
-    /// Проверка: SaveArticlesAsync сохраняет только новые статьи (пропускает дубли)
+    ///     Проверка: SaveArticlesAsync сохраняет только новые статьи (пропускает дубли)
     /// </summary>
     [Fact]
     public async Task SaveArticlesAsync_ShouldSaveOnlyNewArticles()
@@ -108,7 +108,7 @@ public class ArticleServiceTests
         {
             CreateTestArticle("https://example.com/1"), // дубликат
             CreateTestArticle("https://example.com/2"), // новая
-            CreateTestArticle("https://example.com/3")  // новая
+            CreateTestArticle("https://example.com/3") // новая
         };
 
         var savedCount = await service.SaveArticlesAsync(articles);
@@ -119,7 +119,7 @@ public class ArticleServiceTests
     }
 
     /// <summary>
-    /// Проверка: GetArticlesByTopicsAsync возвращает статьи только по указанным темам
+    ///     Проверка: GetArticlesByTopicsAsync возвращает статьи только по указанным темам
     /// </summary>
     [Fact]
     public async Task GetArticlesByTopicsAsync_ShouldReturnArticlesForSpecifiedTopics()
@@ -146,7 +146,7 @@ public class ArticleServiceTests
     }
 
     /// <summary>
-    /// Проверка: SearchArticlesAsync находит статьи по тексту в заголовке
+    ///     Проверка: SearchArticlesAsync находит статьи по тексту в заголовке
     /// </summary>
     [Fact]
     public async Task SearchArticlesAsync_ShouldReturnArticlesMatchingQuery()
@@ -170,7 +170,7 @@ public class ArticleServiceTests
     }
 
     /// <summary>
-    /// Проверка: поиск не зависит от регистра (запрос "apple" находит "Apple")
+    ///     Проверка: поиск не зависит от регистра (запрос "apple" находит "Apple")
     /// </summary>
     [Fact]
     public async Task SearchArticlesAsync_ShouldBeCaseInsensitive()
@@ -187,7 +187,7 @@ public class ArticleServiceTests
     }
 
     /// <summary>
-    /// Проверка: GetLatestArticlesAsync возвращает статьи, отсортированные по дате (сначала новые)
+    ///     Проверка: GetLatestArticlesAsync возвращает статьи, отсортированные по дате (сначала новые)
     /// </summary>
     [Fact]
     public async Task GetLatestArticlesAsync_ShouldReturnArticlesOrderedByDate()
@@ -196,21 +196,19 @@ public class ArticleServiceTests
         var service = CreateService(db);
 
         var articles = new List<Article>();
-        for (int i = 1; i <= 5; i++)
+        for (var i = 1; i <= 5; i++)
         {
             var article = CreateTestArticle($"https://example.com/{i}", $"Article {i}");
             article.PublishedAt = DateTime.UtcNow.AddDays(-i);
             articles.Add(article);
         }
+
         db.Articles.AddRange(articles);
         await db.SaveChangesAsync();
 
         var result = await service.GetLatestArticlesAsync(3);
 
         Assert.Equal(3, result.Count);
-        for (int i = 0; i < result.Count - 1; i++)
-        {
-            Assert.True(result[i].PublishedAt >= result[i + 1].PublishedAt);
-        }
+        for (var i = 0; i < result.Count - 1; i++) Assert.True(result[i].PublishedAt >= result[i + 1].PublishedAt);
     }
 }

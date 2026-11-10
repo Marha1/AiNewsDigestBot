@@ -28,8 +28,8 @@ public class ChatService : IChatService
         }
 
         // Ограничиваем длину текста (чтобы не превысить лимиты токенов)
-        var trimmedText = articleText.Length > 2000 
-            ? articleText[..2000] + "..." 
+        var trimmedText = articleText.Length > 2000
+            ? articleText[..2000] + "..."
             : articleText;
 
         try
@@ -43,7 +43,8 @@ public class ChatService : IChatService
                     new
                     {
                         role = "system",
-                        content = "Ты — помощник, который кратко пересказывает новости. Отвечай только 2-3 предложениями на русском языке."
+                        content =
+                            "Ты — помощник, который кратко пересказывает новости. Отвечай только 2-3 предложениями на русском языке."
                     },
                     new
                     {
@@ -74,10 +75,10 @@ public class ChatService : IChatService
             }
 
             var content = await response.Content.ReadAsStringAsync();
-            
+
             // 3. Разбираем ответ в типизированный класс
             var openAiResponse = JsonConvert.DeserializeObject<OpenAiChatResponse>(content);
-            
+
             // 4. Проверяем, что ответ валидный
             if (openAiResponse?.Choices == null || openAiResponse.Choices.Count == 0)
             {
@@ -86,7 +87,7 @@ public class ChatService : IChatService
             }
 
             var summary = openAiResponse.Choices[0].Message?.Content?.Trim();
-            
+
             if (string.IsNullOrWhiteSpace(summary))
             {
                 _logger.LogWarning("OpenAI API returned empty summary");
@@ -112,6 +113,3 @@ public class ChatService : IChatService
         }
     }
 }
-
-
-

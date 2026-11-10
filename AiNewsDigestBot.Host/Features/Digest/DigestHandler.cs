@@ -90,7 +90,7 @@ public class DigestHandler
 
         // Отправляем без ParseMode (обычный текст)
         foreach (var msg in messages)
-            await _bot.SendMessage(chatId, msg, parseMode: ParseMode.None);
+            await _bot.SendMessage(chatId, msg, ParseMode.None);
     }
 
     private string StripHtml(string input)

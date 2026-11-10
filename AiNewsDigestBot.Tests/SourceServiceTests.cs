@@ -8,7 +8,7 @@ using Moq;
 namespace AiNewsDigestBot.Tests.Services;
 
 /// <summary>
-/// Тесты для SourceService: работа с источниками новостей
+///     Тесты для SourceService: работа с источниками новостей
 /// </summary>
 public class SourceServiceTests
 {

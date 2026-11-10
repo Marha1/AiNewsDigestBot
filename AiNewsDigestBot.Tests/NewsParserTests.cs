@@ -9,7 +9,7 @@ using Moq.Protected;
 namespace AiNewsDigestBot.Tests;
 
 /// <summary>
-/// Тесты для NewsParser: парсинг RSS/Atom лент
+///     Тесты для NewsParser: парсинг RSS/Atom лент
 /// </summary>
 public class NewsParserTests
 {
@@ -59,7 +59,7 @@ public class NewsParserTests
         var parser = new NewsParser(httpClient, config.Object, logger);
 
         // Act
-        var result = parser.ParseAsync("https://test.com/feed.xml", 25).Result;
+        var result = parser.ParseAsync("https://test.com/feed.xml").Result;
 
         // Assert
         Assert.Equal(2, result.Count);
@@ -102,7 +102,7 @@ public class NewsParserTests
         var parser = new NewsParser(httpClient, config.Object, logger);
 
         // Act
-        var result = parser.ParseAsync("https://test.com/feed.xml", 25).Result;
+        var result = parser.ParseAsync("https://test.com/feed.xml").Result;
 
         // Assert
         Assert.Empty(result);
@@ -118,7 +118,7 @@ public class NewsParserTests
         var parser = new NewsParser(httpClient, config.Object, logger);
 
         // Act
-        var result = parser.ParseAsync("https://test.com/feed.xml", 25).Result;
+        var result = parser.ParseAsync("https://test.com/feed.xml").Result;
 
         // Assert
         Assert.Empty(result);
@@ -140,7 +140,7 @@ public class NewsParserTests
         var parser = new NewsParser(httpClient, config.Object, logger);
 
         // Act
-        var result = parser.ParseAsync("https://test.com/feed.xml", 25).Result;
+        var result = parser.ParseAsync("https://test.com/feed.xml").Result;
 
         // Assert
         Assert.Empty(result);

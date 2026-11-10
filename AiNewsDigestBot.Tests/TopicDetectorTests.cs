@@ -4,14 +4,14 @@ using AiNewsDigestBot.Host.Shared.Services.Parser.TopicDetected;
 namespace AiNewsDigestBot.Tests;
 
 /// <summary>
-/// Тесты для TopicDetector: определение темы по тексту
+///     Тесты для TopicDetector: определение темы по тексту
 /// </summary>
 public class TopicDetectorTests
 {
     private readonly TopicDetector _detector = new();
 
     /// <summary>
-    /// Проверка: детектор правильно определяет тему по ключевым словам
+    ///     Проверка: детектор правильно определяет тему по ключевым словам
     /// </summary>
     [Theory]
     [InlineData("Apple announces new iPhone with AI features", Topic.Technology)]
@@ -29,7 +29,7 @@ public class TopicDetectorTests
     }
 
     /// <summary>
-    /// Проверка: для текста без ключевых слов возвращается null
+    ///     Проверка: для текста без ключевых слов возвращается null
     /// </summary>
     [Theory]
     [InlineData("Some random text without any keywords")]
@@ -42,7 +42,7 @@ public class TopicDetectorTests
     }
 
     /// <summary>
-    /// Проверка: при совпадении с несколькими темами выбирается наиболее релевантная
+    ///     Проверка: при совпадении с несколькими темами выбирается наиболее релевантная
     /// </summary>
     [Fact]
     public void Detect_ShouldReturnMostRelevantTopicWhenMultipleMatches()

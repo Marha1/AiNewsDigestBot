@@ -1,7 +1,6 @@
 using AiNewsDigestBot.Host.Shared.Data;
 using AiNewsDigestBot.Host.Shared.Services.Parser;
 using Hangfire;
-using Microsoft.EntityFrameworkCore;
 
 namespace AiNewsDigestBot.Host.Shared.Services;
 
@@ -31,7 +30,7 @@ public class HangfireJobScheduler
                 () => ParseNewsAsync(),
                 "*/30 * * * *", // Cron-выражение: каждые 30 минут
                 TimeZoneInfo.Local);
-            
+
             // Добавляем задачу проверки дайджестов - запускается каждую минуту
             _recurringJobManager.AddOrUpdate(
                 "digest-scheduler",
@@ -48,8 +47,8 @@ public class HangfireJobScheduler
     }
 
     /// <summary>
-    /// Запускает начальный парсинг только если в базе нет статей.
-    /// Если статьи уже есть - пропускаем, чтобы не нагружать источники и OpenAI.
+    ///     Запускает начальный парсинг только если в базе нет статей.
+    ///     Если статьи уже есть - пропускаем, чтобы не нагружать источники и OpenAI.
     /// </summary>
     public void EnqueueInitialParse()
     {
@@ -57,10 +56,10 @@ public class HangfireJobScheduler
         {
             using var scope = _serviceProvider.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            
+
             // Проверяем, есть ли хоть одна статья в базе
             var hasArticles = db.Articles.Any();
-            
+
             if (!hasArticles)
             {
                 // Статей нет - запускаем парсинг в фоне через Hangfire
@@ -80,7 +79,7 @@ public class HangfireJobScheduler
     }
 
     /// <summary>
-    /// Проверяет, кому нужно отправить дайджест, и отправляет
+    ///     Проверяет, кому нужно отправить дайджест, и отправляет
     /// </summary>
     public async Task CheckDigestsAsync()
     {
@@ -90,7 +89,7 @@ public class HangfireJobScheduler
     }
 
     /// <summary>
-    /// Запускает парсинг всех источников
+    ///     Запускает парсинг всех источников
     /// </summary>
     public async Task ParseNewsAsync()
     {

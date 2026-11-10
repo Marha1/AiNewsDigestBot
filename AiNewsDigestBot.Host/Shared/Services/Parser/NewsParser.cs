@@ -234,7 +234,7 @@ public class NewsParser
     }
 
     /// <summary>
-    /// Парсит дату. Если даты нет или это 01.01.0001 — ставит текущее время.
+    ///     Парсит дату. Если даты нет или это 01.01.0001 — ставит текущее время.
     /// </summary>
     private DateTime ParseDate(string dateString)
     {
@@ -243,10 +243,8 @@ public class NewsParser
             return DateTime.UtcNow;
 
         if (DateTime.TryParse(dateString, out var date))
-        {
             if (date.Year > 1)
                 return DateTime.SpecifyKind(date, DateTimeKind.Utc);
-        }
 
         return DateTime.UtcNow;
     }

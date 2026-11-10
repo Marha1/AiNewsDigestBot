@@ -23,14 +23,14 @@ public class ArticleService
         if (articles == null || articles.Count == 0)
             return new List<Article>();
         var uniqueArticles = articles
-            .GroupBy(a => a.Url,StringComparer.OrdinalIgnoreCase)
+            .GroupBy(a => a.Url, StringComparer.OrdinalIgnoreCase)
             .Select(g => g.First())
             .ToList();
 
         var urls = uniqueArticles
             .Select(a => a.Url.ToLower())
             .ToList();
-        
+
         var existingUrls = await _db.Articles
             .Where(a => urls.Contains(a.Url.ToLower()))
             .Select(a => a.Url)
@@ -47,7 +47,7 @@ public class ArticleService
             return 0;
 
         var newArticles = await FilterNewArticlesAsync(articles);
-      
+
         if (newArticles.Count == 0)
         {
             _logger.LogInformation("All {Count} articles already exist in database", articles.Count);
@@ -103,7 +103,7 @@ public class ArticleService
 
         return (articles, totalCount);
     }
-    
+
 
     /// <summary>
     ///     Последние статьи без фильтра
@@ -160,5 +160,4 @@ public class ArticleService
             .Take(limit)
             .ToListAsync();
     }
-    
 }
