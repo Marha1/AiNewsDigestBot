@@ -29,36 +29,37 @@ public class DigestSchedulerService
 
         _logger.LogDebug("Checking digests at {Hour}:{Minute}", currentHour, currentMinute);
 
-        var users = await _db.Users
-            .Include(u => u.Settings)
-            .Include(u => u.Subscriptions)
+        var telegramIds = await _db.Users
             .Where(u => u.Settings != null &&
                         u.Settings.IsEnabled &&
                         u.Settings.DigestHour == currentHour &&
-                        u.Settings.DigestMinute == currentMinute)
+                        u.Settings.DigestMinute == currentMinute &&
+                        u.Subscriptions.Any()
+            )
+            .Select(u => u.TelegramId)
             .ToListAsync();
 
-        if (!users.Any())
+        if (telegramIds.Count == 0)
         {
             _logger.LogDebug("No users to send digests at {Hour}:{Minute}", currentHour, currentMinute);
             return;
         }
 
-        _logger.LogInformation("Found {Count} users to send digests", users.Count);
+        _logger.LogInformation("Found {Count} users to send digests", telegramIds.Count);
 
-        foreach (var user in users)
+        foreach (var id in telegramIds)
             try
             {
                 using var scope = _serviceProvider.CreateScope();
                 var digestHandler = scope.ServiceProvider.GetRequiredService<DigestHandler>();
 
-                _logger.LogInformation("Sending digest to user {TelegramId} at {Time}", user.TelegramId, now);
+                _logger.LogInformation("Sending digest to user {TelegramId} at {Time}", id, now);
 
-                await digestHandler.HandleAsync(user.TelegramId);
+                await digestHandler.HandleAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error sending digest to user {TelegramId}", user.TelegramId);
+                _logger.LogError(ex, "Error sending digest to user {TelegramId}", id);
             }
     }
 }

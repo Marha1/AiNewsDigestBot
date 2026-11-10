@@ -176,9 +176,7 @@ namespace AiNewsDigestBot.Host.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<bool>("IsEnabled")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true);
+                        .HasColumnType("boolean");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");

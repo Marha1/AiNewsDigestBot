@@ -28,7 +28,6 @@ public class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
             .HasDefaultValue(10);
 
         builder.Property(us => us.IsEnabled)
-            .IsRequired()
-            .HasDefaultValue(true);
+            .IsRequired();
     }
 }
