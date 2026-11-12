@@ -50,11 +50,11 @@ public class ArticleService
         
         
         var duplicates =  articles.Count - newArticles.Count;
-        var proccountOfTake = (double) duplicates / articles.Count * 100;
-        _logger.LogInformation($"Count of takes : {proccountOfTake:f1}");
+        var duplicatePercent = (double) duplicates / articles.Count * 100;
+        _logger.LogInformation("Duplicates: {DuplicatePercent:F1}%", duplicatePercent);
         if (newArticles.Count == 0)
         {
-            _logger.LogInformation("Duplicates: {DuplicatePercent:F1}%", proccountOfTake);            
+            _logger.LogInformation("All {Count} articles already exist in database", articles.Count);
             return 0;
         }
       
