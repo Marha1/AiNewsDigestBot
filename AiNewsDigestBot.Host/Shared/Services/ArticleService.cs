@@ -47,12 +47,17 @@ public class ArticleService
             return 0;
 
         var newArticles = await FilterNewArticlesAsync(articles);
-
+        
+        
+        var duplicates =  articles.Count - newArticles.Count;
+        var proccountOfTake = (double) duplicates / articles.Count * 100;
+        _logger.LogInformation($"Count of takes : {proccountOfTake:f1}");
         if (newArticles.Count == 0)
         {
-            _logger.LogInformation("All {Count} articles already exist in database", articles.Count);
+            _logger.LogInformation("Duplicates: {DuplicatePercent:F1}%", proccountOfTake);            
             return 0;
         }
+      
 
         // 4. Сохраняем только новые статьи
         await _db.Articles.AddRangeAsync(newArticles);
