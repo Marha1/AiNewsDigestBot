@@ -61,7 +61,6 @@ public class NewsParser
 
             var response = await _client.GetStringAsync(fullUrl);
             var result = JsonConvert.DeserializeObject<NewsApiResponse>(response);
-
             if (result?.Articles != null)
             {
                 foreach (var item in result.Articles)
@@ -70,7 +69,7 @@ public class NewsParser
                         item.Title ?? "",
                         item.Url ?? "",
                         item.Description ?? "",
-                        item.PublishedAt?.ToString() ?? "",
+                        item.PublishedAt?? DateTime.MinValue,
                         null
                     );
 
@@ -136,10 +135,6 @@ public class NewsParser
                 }
 
                 var cleanDescription = StripHtml(description);
-
-                // ==================================================
-                // ИСПРАВЛЕНИЕ: проверяем дату и передаём строку
-                // ==================================================
                 DateTime publishDate;
                 if (item.PublishDate == DateTimeOffset.MinValue)
                 {
@@ -152,16 +147,13 @@ public class NewsParser
                     publishDate = item.PublishDate.UtcDateTime;
                 }
 
-                var pubDateString = publishDate.ToString("yyyy-MM-ddTHH:mm:ssZ");
-
                 var article = CreateArticle(
                     title,
                     link,
                     cleanDescription,
-                    pubDateString,
+                    publishDate,
                     null
                 );
-
                 if (article != null)
                     articles.Add(article);
             }
@@ -202,7 +194,7 @@ public class NewsParser
         }
     }
 
-    private Article? CreateArticle(string title, string link, string description, string pubDate,
+    private Article? CreateArticle(string title, string link, string description, DateTime pubDate,
         string? defaultCategory)
     {
         var normalizedUrl = NormalizeUrl(link);
@@ -218,9 +210,6 @@ public class NewsParser
             _logger.LogWarning("Skipping article with empty title: {Url}", normalizedUrl);
             return null;
         }
-
-        var parsedDate = ParseDate(pubDate);
-
         return new Article
         {
             Id = Guid.NewGuid(),
@@ -228,27 +217,10 @@ public class NewsParser
             Url = normalizedUrl,
             Description = description ?? "",
             Category = defaultCategory,
-            PublishedAt = parsedDate,
+            PublishedAt = pubDate,
             ParsedAt = DateTime.UtcNow
         };
     }
-
-    /// <summary>
-    ///     Парсит дату. Если даты нет или это 01.01.0001 — ставит текущее время.
-    /// </summary>
-    private DateTime ParseDate(string dateString)
-    {
-        // Если строка пустая — сразу текущее время
-        if (string.IsNullOrWhiteSpace(dateString))
-            return DateTime.UtcNow;
-
-        if (DateTime.TryParse(dateString, out var date))
-            if (date.Year > 1)
-                return DateTime.SpecifyKind(date, DateTimeKind.Utc);
-
-        return DateTime.UtcNow;
-    }
-
     private string NormalizeUrl(string url)
     {
         if (string.IsNullOrEmpty(url)) return url;
