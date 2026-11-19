@@ -25,7 +25,7 @@ public class NewsParser
     {
         try
         {
-            var sourceType = DetectSource(url);
+            var sourceType = SourceHelper.DetectSource(url);
             var articles = sourceType switch
             {
                 SourceType.Rss => await ParseRssAsync(url),
@@ -197,7 +197,7 @@ public class NewsParser
     private Article? CreateArticle(string title, string link, string description, DateTime pubDate,
         string? defaultCategory)
     {
-        var normalizedUrl = NormalizeUrl(link);
+        var normalizedUrl = SourceHelper.NormalizeUrl(link);
 
         if (string.IsNullOrWhiteSpace(normalizedUrl))
         {
@@ -220,27 +220,6 @@ public class NewsParser
             PublishedAt = pubDate,
             ParsedAt = DateTime.UtcNow
         };
-    }
-    private string NormalizeUrl(string url)
-    {
-        if (string.IsNullOrEmpty(url)) return url;
-
-        url = url.TrimEnd('/');
-
-        var questionMarkIndex = url.IndexOf('?');
-        if (questionMarkIndex > 0)
-            url = url[..questionMarkIndex];
-
-        return url.ToLowerInvariant();
-    }
-
-    private SourceType DetectSource(string url)
-    {
-        if (url.Contains("newsapi.org") || url.Contains("newsapi"))
-            return SourceType.NewsApi;
-        if (url.Contains(".rss") || url.Contains("/rss") || url.Contains("/feed"))
-            return SourceType.Rss;
-        return SourceType.Html;
     }
 
     private class NewsApiResponse
