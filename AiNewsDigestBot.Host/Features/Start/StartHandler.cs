@@ -20,7 +20,7 @@ public class StartHandler
     {
         var isNewUser = false;
         //  Проверяем есть ли такой пользователь
-        if (await _userService.UserExistsAsync(chatId))
+        if (!await _userService.UserExistsAsync(chatId))
         {
             await _userService.AddUserAsync(chatId, username, firstName, lastName);
             isNewUser = true;
