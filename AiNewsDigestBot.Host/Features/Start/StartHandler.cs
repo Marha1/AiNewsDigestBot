@@ -19,9 +19,7 @@ public class StartHandler
     public async Task HandleAsync(long chatId, string? username, string? firstName, string? lastName)
     {
         var isNewUser = false;
-        var user = await _userService.GetUserAsync(chatId);
-
-        if (user == null)
+        if (await _userService.GetUserIdAsync(chatId) is null)
         {
             await _userService.AddUserAsync(chatId, username, firstName, lastName);
             isNewUser = true;

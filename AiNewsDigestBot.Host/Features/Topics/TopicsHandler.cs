@@ -21,16 +21,15 @@ public class TopicsHandler
 
     public async Task HandleAsync(long chatId)
     {
-        // Находим пользователя
-        var user = await _userService.GetUserAsync(chatId);
-        if (user == null)
+        // 1. Находим пользователя
+        if (await _userService.GetUserIdAsync(chatId) is not Guid userId)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
             return;
         }
 
         // Получаем подписки пользователя
-        var userSubscriptions = await _subscriptionService.GetUserSubscriptionTopicsAsync(user.Id);
+        var userSubscriptions = await _subscriptionService.GetUserSubscriptionTopicsAsync(userId);
 
         // Создаём inline клавиатуру
         var inlineKeyboard = new List<List<InlineKeyboardButton>>();

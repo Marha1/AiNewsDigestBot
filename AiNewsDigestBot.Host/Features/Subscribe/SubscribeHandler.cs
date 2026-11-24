@@ -20,8 +20,7 @@ public class SubscribeHandler
     public async Task HandleAsync(long chatId, string topicName)
     {
         // 1. Находим пользователя
-        var user = await _userService.GetUserAsync(chatId);
-        if (user == null)
+        if (await _userService.GetUserIdAsync(chatId) is not Guid userId)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
             return;
@@ -37,7 +36,7 @@ public class SubscribeHandler
         }
 
         // 3. Проверяем, не подписан ли уже
-        var isSubscribed = await _subscriptionService.IsUserSubscribedAsync(user.Id, topic);
+        var isSubscribed = await _subscriptionService.IsUserSubscribedAsync(userId, topic);
         if (isSubscribed)
         {
             // Если подписан - только сообщаем, отписка живёт в "Мои подписки"
@@ -47,7 +46,7 @@ public class SubscribeHandler
         }
 
         // 4. Создаём подписку
-        await _subscriptionService.AddSubscriptionAsync(user.Id, topic);
+        await _subscriptionService.AddSubscriptionAsync(userId, topic);
 
         // 5. Обновляем активность пользователя
         await _userService.UpdateLastActiveAsync(chatId);

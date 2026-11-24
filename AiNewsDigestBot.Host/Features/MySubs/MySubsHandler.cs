@@ -20,14 +20,13 @@ public class MySubsHandler
 
     public async Task HandleAsync(long chatId)
     {
-        var user = await _userService.GetUserAsync(chatId);
-        if (user == null)
+        if (await _userService.GetUserIdAsync(chatId) is not Guid userId)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
             return;
         }
 
-        var subscriptions = await _subscriptionService.GetUserSubscriptionsAsync(user.Id);
+        var subscriptions = await _subscriptionService.GetUserSubscriptionsAsync(userId);
 
         if (!subscriptions.Any())
         {

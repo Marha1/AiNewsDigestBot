@@ -20,8 +20,7 @@ public class UnsubscribeHandler
     public async Task HandleAsync(long chatId, string topicName)
     {
         // 1. Находим пользователя
-        var user = await _userService.GetUserAsync(chatId);
-        if (user == null)
+        if (await _userService.GetUserIdAsync(chatId) is not Guid userId)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
             return;
@@ -35,7 +34,7 @@ public class UnsubscribeHandler
         }
 
         // 3. Удаляем подписку
-        var removed = await _subscriptionService.RemoveSubscriptionAsync(user.Id, topic);
+        var removed = await _subscriptionService.RemoveSubscriptionAsync(userId, topic);
 
         if (!removed)
         {
