@@ -19,13 +19,12 @@ public class SubscribeHandler
 
     public async Task HandleAsync(long chatId, string topicName)
     {
-        // 1. Находим пользователя
+        // 1. Находим id пользователя
         if (await _userService.GetUserIdAsync(chatId) is not Guid userId)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
             return;
         }
-
         // 2. Парсим название темы
         if (!Enum.TryParse<Topic>(topicName, true, out var topic))
         {
@@ -34,7 +33,6 @@ public class SubscribeHandler
                 $"Доступные темы: {string.Join(", ", Enum.GetNames<Topic>())}");
             return;
         }
-
         // 3. Проверяем, не подписан ли уже
         var isSubscribed = await _subscriptionService.IsUserSubscribedAsync(userId, topic);
         if (isSubscribed)
@@ -44,13 +42,10 @@ public class SubscribeHandler
                 $"ℹ️ Вы уже подписаны на тему {topic}.\n\nОтписаться можно через кнопку 📰 Мои подписки");
             return;
         }
-
         // 4. Создаём подписку
         await _subscriptionService.AddSubscriptionAsync(userId, topic);
-
         // 5. Обновляем активность пользователя
         await _userService.UpdateLastActiveAsync(chatId);
-
         // 6. Отвечаем
         await _bot.SendMessage(chatId,
             $"✅ Вы подписались на тему {topic}\n\nИспользуйте /mysubs чтобы увидеть все подписки");

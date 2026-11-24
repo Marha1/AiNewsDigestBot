@@ -21,7 +21,7 @@ public class TopicsHandler
 
     public async Task HandleAsync(long chatId)
     {
-        // 1. Находим пользователя
+        // 1. Находим id пользователя
         if (await _userService.GetUserIdAsync(chatId) is not Guid userId)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");

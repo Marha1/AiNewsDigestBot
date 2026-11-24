@@ -40,11 +40,13 @@ public class UserService
     }
 
     /// <summary>
-    ///     Получить пользователя по Telegram ID (без связанных данных)
+    ///     Получить id пользователя по Telegram ID (без связанных данных)
     /// </summary>
     public async Task<Guid?> GetUserIdAsync(long telegramId)
     {
-        return await _db.Users.Where(u => u.TelegramId == telegramId).Select(u=> (Guid?)u.Id).FirstOrDefaultAsync();
+        return await _db.Users.Where(u => u.TelegramId == telegramId)
+            .Select(u=> (Guid?)u.Id)
+            .FirstOrDefaultAsync();
     }
 
     /// <summary>

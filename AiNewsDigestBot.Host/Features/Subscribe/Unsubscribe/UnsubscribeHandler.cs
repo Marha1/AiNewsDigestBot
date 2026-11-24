@@ -19,32 +19,27 @@ public class UnsubscribeHandler
 
     public async Task HandleAsync(long chatId, string topicName)
     {
-        // 1. Находим пользователя
+        // 1. Находим id пользователя
         if (await _userService.GetUserIdAsync(chatId) is not Guid userId)
         {
             await _bot.SendMessage(chatId, "❌ Сначала отправьте /start");
             return;
         }
-
         // 2. Парсим тему
         if (!Enum.TryParse<Topic>(topicName, true, out var topic))
         {
             await _bot.SendMessage(chatId, $"❌ Неизвестная тема: {topicName}");
             return;
         }
-
         // 3. Удаляем подписку
         var removed = await _subscriptionService.RemoveSubscriptionAsync(userId, topic);
-
         if (!removed)
         {
             await _bot.SendMessage(chatId, $"❌ Вы не подписаны на тему {topic}");
             return;
         }
-
         // 4. Обновляем активность пользователя
         await _userService.UpdateLastActiveAsync(chatId);
-
         await _bot.SendMessage(chatId, $"✅ Вы отписались от темы {topic}");
     }
 }
